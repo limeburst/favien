@@ -1,0 +1,3 @@
+
+.. automodule:: favien.user
+   :members:

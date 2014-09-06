@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+        <meta charset="utf-8">
+        <title>
+            {%- block title -%}
+                {{ config.SERVICE_NAME }}
+            {%- endblock -%}
+        </title>
+    {% endblock %}
+</head>
+<body>
+<h1><a href="{{ url_for('user.home') }}">{{ config.SERVICE_NAME }}</a></h1>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+<ul>
+</ul>
+{% if not current_user %}
+    <a href="{{ url_for('user.login') }}">Sign in with Twitter</a>
+{% else %}
+    <ul>
+        <li>
+            <a href="{{ url_for('user.profile', screen_name=current_user.screen_name) }}">
+                {{ current_user.screen_name }}
+            </a>
+        </li>
+        <li><a href="{{ url_for('user.logout') }}">Sign out</a></li>
+    </ul>
+{% endif %}
+{% block body %}
+{% endblock %}
+</body>
+</html>

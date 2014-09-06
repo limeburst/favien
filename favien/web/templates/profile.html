@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block body %}
+    <h2>
+        <a href="{{ url_for('user.profile', screen_name=user.screen_name) }}">
+            {{ user.screen_name }}
+        </a>
+    </h2>
+    <p>Member since {{ user.created_at.strftime('%B %d, %Y') }}</p>
+{% endblock %}
