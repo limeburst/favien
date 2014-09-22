@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='canvas.css') }}">
+{% endblock %}
+
+{% block title %}
+    Untitled canvas
+{% endblock %}
+
+{% block body %}
+    <ul>
+        <li>
+            <label for="color">Color</label>
+            <input type="color" id="color" value="#000000">
+        </li>
+        <li>
+            <label for="size">Size</label>
+            <input type="range" id="size" value="10" min="0.5" step="0.01">
+        </li>
+        <li>
+            <label for="flow">Flow</label>
+            <input type="range" id="flow" value="1" max="1" step="0.01">
+        </li>
+        <li>
+            <label for="spacing">Spacing</label>
+            <input type="range" id="spacing" value="0.2" min="0.05" max="5" step="0.01">
+        </li>
+    </ul>
+    <canvas id="canvas" width="600" height="300"></canvas>
+    <object id="wacom" type="application/x-wacomtabletplugin"></object>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='canvas.js') }}"></script>
+{% endblock %}

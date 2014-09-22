@@ -4,7 +4,7 @@
 """
 from flask import Flask
 
-from . import user
+from . import canvas, user
 from .db import setup_session
 
 
@@ -19,5 +19,6 @@ def create_app(config):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_pyfile(config)
     setup_session(app)
+    app.register_blueprint(canvas.bp)
     app.register_blueprint(user.bp)
     return app

@@ -1,0 +1,9 @@
+#wacom {
+    position: absolute;
+    visibility: hidden;
+}
+
+#canvas {
+    -webkit-user-select: none;
+    box-shadow: 0 0 1cm #000;
+}
