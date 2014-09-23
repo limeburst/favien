@@ -85,8 +85,11 @@ def logout():
 @bp.route('/oauth/callback')
 def callback():
     """Callback from Twitter."""
-    resource_owner_key = cookie.pop('twitter_oauth_token')
-    resource_owner_secret = cookie.pop('twitter_oauth_token_secret')
+    try:
+        resource_owner_key = cookie.pop('twitter_oauth_token')
+        resource_owner_secret = cookie.pop('twitter_oauth_token_secret')
+    except KeyError:
+        abort(401)
     config = current_app.config
     oauth = OAuth1(config['TWITTER_API_KEY'],
                    client_secret=config['TWITTER_API_SECRET'],
