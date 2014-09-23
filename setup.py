@@ -24,6 +24,7 @@ setup(
     install_requires=[
         'Flask',
         'SQLAlchemy',
+        'boto',
         'click',
         'redis',
         'requests',

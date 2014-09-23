@@ -2,7 +2,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 """
-from sqlalchemy.orm import deferred
+from sqlalchemy.orm import deferred, relationship
 from sqlalchemy.schema import Column
 from sqlalchemy.sql.functions import now
 from sqlalchemy.types import BigInteger, DateTime, Integer, String
@@ -27,6 +27,9 @@ class User(Base):
 
     #: (:class:`sqlalchemy.types.String`) Twitter OAuth token secret.
     twitter_oauth_token_secret = Column(String, nullable=False)
+
+    #: (:class:`sqlalchemy.orm.relationship`) The user's canvases.
+    canvases = relationship('Canvas', backref='user')
 
     #: (:class:`sqlalchemy.types.DateTime`) The registered time.
     created_at = deferred(

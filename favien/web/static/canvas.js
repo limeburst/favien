@@ -90,6 +90,7 @@ function getPressure() {
 }
 
 $(document).ready(function() {
+    var save = $('#save');
     var canvas = $('#canvas');
     canvas.on('mousedown', function(e) {
         isDrawing = true;
@@ -109,5 +110,21 @@ $(document).ready(function() {
     canvas.on('mouseup mouseleave', function(e) {
         isDrawing = false;
         brush = undefined;
+    });
+    save.submit(function(e) {
+        $.ajax({
+            url: save[0].action,
+            type: save[0].method,
+            dataType: 'json',
+            data: {
+                title: $('#title').val(),
+                description: $('#description').val(),
+                canvas: canvas[0].toDataURL()
+            },
+            success: function(data) {
+                window.location.replace(data.location);
+            }
+        });
+        e.preventDefault();
     });
 });

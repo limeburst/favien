@@ -1,0 +1,29 @@
+{% extends 'canvas/canvas_base.html' %}
+
+{% block title %}
+    {{ canvas.title }}
+{% endblock %}
+
+{% block body %}
+    <h2>
+        <a href="{{ url_for('canvas.view', screen_name=canvas.artist.screen_name, canvas_id=canvas.id) }}">
+            {% if canvas.title %}
+                {{ canvas.title }}
+            {% else %}
+                Untitled
+            {% endif %}
+        </a>
+    </h2>
+    <p>
+        <a href="{{ url_for('user.profile', screen_name=canvas.artist.screen_name) }}">{{ canvas.artist.screen_name }}</a>
+        - {{ canvas.artist.canvases|count }} canvases.
+    </p>
+    <p>
+        {% if canvas.description %}
+            {{ canvas.description }}
+        {% else %}
+            No description.
+        {% endif %}
+    </p>
+    <img id="canvas" src="{{ canvas.get_url() }}">
+{% endblock %}

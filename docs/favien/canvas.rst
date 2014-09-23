@@ -1,0 +1,3 @@
+
+.. automodule:: favien.canvas
+   :members:

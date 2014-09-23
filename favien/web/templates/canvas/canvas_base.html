@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='canvas.css') }}">
+{% endblock %}

@@ -5,6 +5,7 @@
    .. toctree::
       :maxdepth: 2
 
+      favien/canvas
       favien/orm
       favien/user
       favien/web

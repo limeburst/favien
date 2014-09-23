@@ -6,4 +6,25 @@
         </a>
     </h2>
     <p>Member since {{ user.created_at.strftime('%B %d, %Y') }}</p>
+    {% if user.canvases %}
+        <h3>Canvases</h3>
+        <ul>
+            {% for canvas in user.canvases %}
+                <li>
+                    <a href="{{ url_for('canvas.view', screen_name=user.screen_name, canvas_id=canvas.id) }}">
+                        {% if canvas.title %}
+                            {{ canvas.title }}
+                        {% else %}
+                            Untitled
+                        {% endif %}
+                    </a> -
+                    {% if canvas.description %}
+                        {{ canvas.description }}
+                    {% else %}
+                        No description
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}

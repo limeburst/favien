@@ -1,15 +1,14 @@
-{% extends 'base.html' %}
-
-{% block head %}
-    {{ super() }}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='canvas.css') }}">
-{% endblock %}
+{% extends 'canvas/canvas_base.html' %}
 
 {% block title %}
-    Untitled canvas
+    {{ super() }} - New canvas
 {% endblock %}
 
 {% block body %}
+    <input id="title" type="text" placeholder="Untitled">
+    <p>
+        <textarea id="description" placeholder="Description"></textarea>
+    </p>
     <ul>
         <li>
             <label for="color">Color</label>
@@ -30,6 +29,9 @@
     </ul>
     <canvas id="canvas" width="600" height="300"></canvas>
     <object id="wacom" type="application/x-wacomtabletplugin"></object>
+    <form id="save" action="{{ url_for('canvas.add', screen_name=current_user.screen_name) }}" method="POST">
+        <input type="submit" value="Save">
+    </form>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='canvas.js') }}"></script>
 {% endblock %}
