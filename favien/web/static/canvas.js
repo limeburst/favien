@@ -79,6 +79,7 @@ var Brush = function(size, flow, spacing, color) {
 };
 
 var brush;
+var isLocked;
 var isDrawing;
 
 function getPressure() {
@@ -94,6 +95,11 @@ $(document).ready(function() {
     var save = $('#save');
     var canvas = $('#canvas');
     canvas.on('mousedown', function(e) {
+        if (!isLocked) {
+            isLocked = true;
+            $('#width').prop('disabled', true);
+            $('#height').prop('disabled', true);
+        }
         isDrawing = true;
         brush = new Brush(
             $('#size').val(),
@@ -128,4 +134,12 @@ $(document).ready(function() {
         });
         e.preventDefault();
     });
+    var width = $('#width');
+    width.on('change', function() {
+        canvas[0].width = width.val();
+    });
+    var height = $('#height');
+    height.on('change', function() {
+        canvas[0].height = height.val();
+    })
 });
