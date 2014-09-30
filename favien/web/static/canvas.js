@@ -83,7 +83,7 @@ var isDrawing;
 function getPressure() {
     var wacom = document.getElementById('wacom').penAPI;
     if (wacom === undefined) {
-        return 1
+        return 0.5
     } else {
         return wacom.pressure
     }
