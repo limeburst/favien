@@ -14,6 +14,7 @@ var Brush = function(size, flow, spacing, color) {
     var lastX;
     var lastY;
     var direction;
+    this.name = 'arc';
     this.color = color;
     this.size = size;
     this.flow = flow;
