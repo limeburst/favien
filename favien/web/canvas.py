@@ -4,7 +4,7 @@
 """
 import base64
 
-from flask import (Blueprint, abort, jsonify, redirect, render_template,
+from flask import (Blueprint, abort, json, jsonify, redirect, render_template,
                    request, url_for)
 
 from ..canvas import Canvas
@@ -38,10 +38,10 @@ def add(screen_name):
         abort(401)
     if not current_user:
         return redirect(url_for('user.login'))
-    print(request.form)
     canvas = Canvas(artist_id=current_user.id,
                     title=request.form.get('title'),
-                    description=request.form.get('description'))
+                    description=request.form.get('description'),
+                    strokes=json.loads(request.form.get('strokes')))
     session.add(canvas)
     session.commit()
     blob = base64.b64decode(request.form['canvas'].split(',')[1])

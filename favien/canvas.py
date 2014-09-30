@@ -9,6 +9,7 @@ from sqlalchemy.orm import deferred, relationship
 from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.sql.functions import now
 from sqlalchemy.types import DateTime, Integer, UnicodeText
+from sqlalchemy.dialects.postgres import JSON
 
 from .orm import Base
 from .user import User
@@ -31,6 +32,9 @@ class Canvas(Base):
 
     #: (:class:`sqlalchemy.types.UnicodeText`) The description of the canvas.
     description = Column(UnicodeText)
+
+    #: (:class:`sqlalchemy.dialects.postgres.JSON`) Canvas brush strokes.
+    strokes = deferred(Column(JSON))
 
     #: (:class:`sqlalchemy.types.DateTime`) The created time.
     created_at = deferred(

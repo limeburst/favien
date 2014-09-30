@@ -1,5 +1,10 @@
 "use strict";
 
+var Stroke = function(brush) {
+    this.brush = brush;
+    this.traces = [];
+};
+
 var Trace = function(x, y, p) {
     this.x = x;
     this.y = y;
@@ -34,6 +39,7 @@ var Brush = function(size, flow, spacing, color) {
         lastY = prevY = trace.y;
         prevP = trace.p;
         distance = 0;
+        stroke.traces.push(trace);
         this.draw(canvas, trace);
     };
     this.move = function(canvas, trace) {
@@ -62,6 +68,7 @@ var Brush = function(size, flow, spacing, color) {
                 lastX = trace.x;
                 lastY = trace.y;
                 distance -= drawSpacing;
+                stroke.traces.push(trace);
                 this.draw(canvas, new Trace(lastX, lastY, trace.p));
             } else {
                 while (distance >= drawSpacing) {
@@ -71,6 +78,7 @@ var Brush = function(size, flow, spacing, color) {
                     lastY += ty * drawSpacing;
                     prevP += scaleSpacing;
                     distance -= drawSpacing;
+                    stroke.traces.push(trace);
                     this.draw(canvas, new Trace(lastX, lastY, prevP));
                 }
             }
@@ -79,6 +87,7 @@ var Brush = function(size, flow, spacing, color) {
 };
 
 var brush;
+var stroke;
 var isLocked;
 var isDrawing;
 
@@ -92,6 +101,7 @@ function getPressure() {
 }
 
 $(document).ready(function() {
+    var strokes = [];
     var save = $('#save');
     var canvas = $('#canvas');
     canvas.on('mousedown', function(e) {
@@ -107,6 +117,7 @@ $(document).ready(function() {
             $('#spacing').val(),
             $('#color').val()
         );
+        stroke = new Stroke(brush);
         brush.down(canvas, new Trace(e.offsetX, e.offsetY, getPressure()));
     });
     canvas.on('mousemove', function(e) {
@@ -114,9 +125,13 @@ $(document).ready(function() {
             brush.move(canvas, new Trace(e.offsetX, e.offsetY, getPressure()));
         }
     });
-    canvas.on('mouseup mouseleave', function(e) {
+    canvas.on('mouseup mouseleave', function() {
+        if (stroke) {
+            strokes.push(stroke);
+        }
         isDrawing = false;
         brush = undefined;
+        stroke = undefined;
     });
     save.submit(function(e) {
         $.ajax({
@@ -126,7 +141,8 @@ $(document).ready(function() {
             data: {
                 title: $('#title').val(),
                 description: $('#description').val(),
-                canvas: canvas[0].toDataURL()
+                canvas: canvas[0].toDataURL(),
+                strokes: JSON.stringify(strokes)
             },
             success: function(data) {
                 window.location.replace(data.location);
