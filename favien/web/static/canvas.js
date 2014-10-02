@@ -28,6 +28,7 @@ var Brush = function(size, flow, spacing, color) {
         var ctx = canvas[0].getContext('2d');
         ctx.globalAlpha = this.flow;
         ctx.fillStyle = this.color;
+        ctx.globalCompositeOperation = this.globalCompositeOperation;
         ctx.beginPath();
         ctx.arc(trace.x, trace.y, trace.p * this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -117,6 +118,9 @@ $(document).ready(function() {
             $('#spacing').val(),
             $('#color').val()
         );
+        if ($('#eraser').is(':checked')) {
+            brush.globalCompositeOperation = 'destination-out';
+        }
         stroke = new Stroke(brush);
         brush.down(canvas, new Trace(e.offsetX, e.offsetY, getPressure()));
     });
