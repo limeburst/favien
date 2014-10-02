@@ -11,7 +11,7 @@ var Trace = function(x, y, p) {
     this.p = p;
 };
 
-var Brush = function(size, flow, spacing, color) {
+var Brush = function(size, flow, spacing) {
     var distance;
     var prevX;
     var prevY;
@@ -20,7 +20,6 @@ var Brush = function(size, flow, spacing, color) {
     var lastY;
     var direction;
     this.name = 'arc';
-    this.color = color;
     this.size = size;
     this.flow = flow;
     this.spacing = spacing;
@@ -115,11 +114,12 @@ $(document).ready(function() {
         brush = new Brush(
             $('#size').val(),
             $('#flow').val(),
-            $('#spacing').val(),
-            $('#color').val()
+            $('#spacing').val()
         );
         if ($('#eraser').is(':checked')) {
             brush.globalCompositeOperation = 'destination-out';
+        } else {
+            brush.color = $('#color').val();
         }
         stroke = new Stroke(brush);
         brush.down(canvas, new Trace(e.offsetX, e.offsetY, getPressure()));
