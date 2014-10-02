@@ -11,7 +11,7 @@ var Trace = function(x, y, p) {
     this.p = p;
 };
 
-var Brush = function(size, flow, spacing) {
+var Brush = function(size, globalAlpha, spacing) {
     var distance;
     var prevX;
     var prevY;
@@ -21,12 +21,12 @@ var Brush = function(size, flow, spacing) {
     var direction;
     this.name = 'arc';
     this.size = size;
-    this.flow = flow;
+    this.globalAlpha = globalAlpha;
     this.spacing = spacing;
     this.draw = function(canvas, trace) {
         var ctx = canvas[0].getContext('2d');
-        ctx.globalAlpha = this.flow;
-        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.globalAlpha;
+        ctx.fillStyle = this.fillStyle;
         ctx.globalCompositeOperation = this.globalCompositeOperation;
         ctx.beginPath();
         ctx.arc(trace.x, trace.y, trace.p * this.size, 0, Math.PI * 2);
@@ -119,7 +119,7 @@ $(document).ready(function() {
         if ($('#eraser').is(':checked')) {
             brush.globalCompositeOperation = 'destination-out';
         } else {
-            brush.color = $('#color').val();
+            brush.fillStyle = $('#color').val();
         }
         stroke = new Stroke(brush);
         brush.down(canvas, new Trace(e.offsetX, e.offsetY, getPressure()));
