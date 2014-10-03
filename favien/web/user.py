@@ -3,8 +3,8 @@
 
 """
 import requests
-from flask import (Blueprint, abort, current_app, flash, redirect,
-                   render_template, request, session as cookie, url_for)
+from flask import (Blueprint, abort, current_app, redirect, render_template,
+                   request, session as cookie, url_for)
 from werkzeug.urls import url_decode
 from werkzeug.local import LocalProxy
 from requests_oauthlib import OAuth1
@@ -78,7 +78,6 @@ def login():
 def logout():
     """Sign out."""
     cookie.pop('user_id', None)
-    flash("You have been logged out")
     return redirect(url_for('.home'))
 
 
@@ -108,7 +107,6 @@ def callback():
     user.screen_name = response['screen_name']
     session.commit()
     cookie['user_id'] = user.id
-    flash("Logged in as {}".format(user.screen_name))
     return redirect(url_for('.home'))
 
 

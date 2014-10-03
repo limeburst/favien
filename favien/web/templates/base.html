@@ -12,17 +12,6 @@
 </head>
 <body>
 <h1><a href="{{ url_for('user.home') }}">{{ config.SERVICE_NAME }}</a></h1>
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endwith %}
-<ul>
-</ul>
 {% if not current_user %}
     <a href="{{ url_for('user.login') }}">Sign in with Twitter</a>
 {% else %}
