@@ -6,7 +6,13 @@
         </a>
     </h2>
     {% if user.canvases %}
-        <h3>Canvases</h3>
+        <h3>
+            {% trans number=user.canvases|count -%}
+                {{ number }} canvas
+            {%- pluralize -%}
+                {{ number }} canvases
+            {%- endtrans %}
+        </h3>
         <ul>
             {% for canvas in user.canvases %}
                 <li>
@@ -14,13 +20,13 @@
                         {% if canvas.title %}
                             {{ canvas.title }}
                         {% else %}
-                            Untitled
+                            {% trans -%} Untitled {%- endtrans %}
                         {% endif %}
                     </a> -
                     {% if canvas.description %}
                         {{ canvas.description }}
                     {% else %}
-                        No description
+                        {% trans -%} No description {%- endtrans %}
                     {% endif %}
                 </li>
             {% endfor %}

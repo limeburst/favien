@@ -13,7 +13,9 @@
 <body>
 <h1><a href="{{ url_for('user.home') }}">{{ config.SERVICE_NAME }}</a></h1>
 {% if not current_user %}
-    <a href="{{ url_for('user.login') }}">Sign in with Twitter</a>
+    <a href="{{ url_for('user.login') }}">
+        {% trans -%} Sign in with Twitter {%- endtrans %}
+    </a>
 {% else %}
     <ul>
         <li>
@@ -21,10 +23,18 @@
                 {{ current_user.screen_name }}
             </a>
         </li>
-        <li><a href="{{ url_for('user.logout') }}">Sign out</a></li>
+        <li>
+            <a href="{{ url_for('user.logout') }}">
+                {% trans -%} Sign out {%- endtrans %}
+            </a>
+        </li>
     </ul>
     <ul>
-        <li><a href="{{ url_for('canvas.new') }}">New canvas</a></li>
+        <li>
+            <a href="{{ url_for('canvas.new') }}">
+                {% trans -%} New canvas {%- endtrans %}
+            </a>
+        </li>
     </ul>
 {% endif %}
 {% block body %}
