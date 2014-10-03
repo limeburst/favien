@@ -19,10 +19,20 @@ setup(
     zip_safe=False,
     packages=['favien', 'favien.web'],
     package_data={
-        'favien.web': ['templates/*.*', 'static/*.*'],
+        'favien.web': ['templates/*.*', 'static/*.*',
+                       'translations/*/LC_MESSAGES/*'],
+    },
+    message_extractors={
+        'favien/web/templates': [
+            ('**.html', 'jinja2', {
+                'extensions': 'jinja2.ext.autoescape,'
+                              'jinja2.ext.with_'
+            })
+        ]
     },
     install_requires=[
         'Flask',
+        'Flask-Babel',
         'SQLAlchemy',
         'boto',
         'click',

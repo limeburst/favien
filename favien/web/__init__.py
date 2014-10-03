@@ -2,10 +2,14 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 """
-from flask import Flask
+from flask import Flask, request
+from flask.ext.babel import Babel
 
 from . import canvas, user
 from .db import setup_session
+
+
+babel = Babel()
 
 
 def create_app(config):
@@ -21,4 +25,12 @@ def create_app(config):
     setup_session(app)
     app.register_blueprint(canvas.bp)
     app.register_blueprint(user.bp)
+    babel.init_app(app)
+    babel.localeselector(get_locale)
     return app
+
+
+def get_locale():
+    """Chooses the most suitable locale."""
+    candidates = [str(locale) for locale in babel.list_translations()]
+    return request.accept_languages.best_match(candidates)
