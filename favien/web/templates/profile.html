@@ -5,7 +5,6 @@
             {{ user.screen_name }}
         </a>
     </h2>
-    <p>Member since {{ user.created_at.strftime('%B %d, %Y') }}</p>
     {% if user.canvases %}
         <h3>Canvases</h3>
         <ul>
