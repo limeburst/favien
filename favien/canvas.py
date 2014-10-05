@@ -50,7 +50,7 @@ class Canvas(Base):
         c = S3Connection(config['AWS_ACCESS_KEY_ID'], config['AWS_SECRET_KEY'])
         b = c.get_bucket(config['AWS_S3_BUCKET'], validate=False)
         k = Key(b)
-        k.key = self.id
+        k.key = '{}/{}'.format(self.__tablename__, self.id)
         return k
 
     def from_blob(self, blob):
