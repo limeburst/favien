@@ -48,7 +48,7 @@ class Canvas(Base):
     def key(self):
         config = current_app.config
         c = S3Connection(config['AWS_ACCESS_KEY_ID'], config['AWS_SECRET_KEY'])
-        b = c.get_bucket(config['AWS_S3_BUCKET'])
+        b = c.get_bucket(config['AWS_S3_BUCKET'], validate=False)
         k = Key(b)
         k.key = self.id
         return k
