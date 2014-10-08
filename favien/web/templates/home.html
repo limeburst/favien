@@ -1,1 +1,12 @@
 {% extends 'base.html' %}
+
+{% block body %}
+    <h2>{% trans -%} Recent canvases {%- endtrans %}</h2>
+    <ol>
+        {% for canvas in new_canvases %}
+            <li>
+                <a href="{{ url_for('canvas.view', screen_name=canvas.artist.screen_name, canvas_id=canvas.id) }}"><img src="{{ canvas.get_url() }}"></a>
+            </li>
+        {% endfor %}
+    </ol>
+{% endblock %}

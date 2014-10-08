@@ -9,6 +9,7 @@ from werkzeug.urls import url_decode
 from werkzeug.local import LocalProxy
 from requests_oauthlib import OAuth1
 
+from ..canvas import Canvas
 from ..user import User
 from .db import session
 
@@ -54,7 +55,10 @@ def inject_current_user():
 @bp.route('/')
 def home():
     """Home."""
-    return render_template('home.html')
+    new_canvases = session.query(Canvas) \
+                          .order_by(Canvas.created_at.desc()) \
+                          .limit(8)
+    return render_template('home.html', new_canvases=new_canvases)
 
 
 @bp.route('/login/')
