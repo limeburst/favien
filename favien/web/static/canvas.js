@@ -119,6 +119,7 @@ $(document).ready(function() {
         if ($('#eraser').is(':checked')) {
             brush.globalCompositeOperation = 'destination-out';
         } else {
+            brush.globalCompositeOperation = 'source-over';
             brush.fillStyle = $('#color').val();
         }
         stroke = new Stroke(brush);
