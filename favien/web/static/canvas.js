@@ -5,10 +5,11 @@ var Stroke = function(brush) {
     this.traces = [];
 };
 
-var Trace = function(x, y, p) {
+var Trace = function(x, y, p, t) {
     this.x = x;
     this.y = y;
     this.p = p;
+    this.t = t;
 };
 
 var Brush = function(size, globalAlpha, spacing) {
@@ -69,7 +70,7 @@ var Brush = function(size, globalAlpha, spacing) {
                 lastY = trace.y;
                 distance -= drawSpacing;
                 stroke.traces.push(trace);
-                this.draw(canvas, new Trace(lastX, lastY, trace.p));
+                this.draw(canvas, new Trace(lastX, lastY, trace.p, new Date().getTime()));
             } else {
                 while (distance >= drawSpacing) {
                     var tx = Math.cos(direction);
@@ -79,7 +80,7 @@ var Brush = function(size, globalAlpha, spacing) {
                     prevP += scaleSpacing;
                     distance -= drawSpacing;
                     stroke.traces.push(trace);
-                    this.draw(canvas, new Trace(lastX, lastY, prevP));
+                    this.draw(canvas, new Trace(lastX, lastY, prevP, new Date().getTime()));
                 }
             }
         }
@@ -123,11 +124,11 @@ $(document).ready(function() {
             brush.fillStyle = $('#color').val();
         }
         stroke = new Stroke(brush);
-        brush.down(canvas, new Trace(e.offsetX, e.offsetY, getPressure()));
+        brush.down(canvas, new Trace(e.offsetX, e.offsetY, getPressure(), new Date().getTime()));
     });
     canvas.on('mousemove', function(e) {
         if (isDrawing) {
-            brush.move(canvas, new Trace(e.offsetX, e.offsetY, getPressure()));
+            brush.move(canvas, new Trace(e.offsetX, e.offsetY, getPressure(), new Date().getTime()));
         }
     });
     canvas.on('mouseup mouseleave', function() {
