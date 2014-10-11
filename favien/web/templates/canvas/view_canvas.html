@@ -14,15 +14,17 @@
             {% endif %}
         </a>
     </h2>
-    <p>
-        <a href="{{ url_for('user.profile', screen_name=canvas.artist.screen_name) }}">{{ canvas.artist.screen_name }}</a>
-        -
-        {% trans number=canvas.artist.canvases|count -%}
-            {{ number }} canvas
-        {%- pluralize -%}
-            {{ number }} canvases
-        {%- endtrans %}
-    </p>
+    <ul>
+        <li>
+            <a rel="author" href="{{ url_for('user.profile', screen_name=canvas.artist.screen_name) }}">{{ canvas.artist.screen_name }}</a>
+        </li>
+        {% if canvas.artist == current_user %}
+            <li>
+                <a href="{{ url_for('canvas.delete', screen_name=canvas.artist.screen_name, canvas_id=canvas.id) }}">Delete</a>
+            </li>
+        {% endif %}
+    </ul>
+    <img id="canvas" src="{{ canvas.get_url() }}">
     <p>
         {% if canvas.description %}
             {{ canvas.description }}
@@ -30,5 +32,4 @@
             {% trans -%} No description {%- endtrans %}
         {% endif %}
     </p>
-    <img id="canvas" src="{{ canvas.get_url() }}">
 {% endblock %}

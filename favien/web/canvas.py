@@ -51,6 +51,21 @@ def add(screen_name):
                                     canvas_id=canvas.id))
 
 
+@bp.route('/<screen_name>/<int:canvas_id>/delete/')
+def delete(screen_name, canvas_id):
+    """Deletes a canvas."""
+    canvas = get_canvas(screen_name, canvas_id)
+    if not canvas:
+        abort(404)
+    if canvas.artist != current_user:
+        abort(400)
+    else:
+        session.delete(canvas)
+        session.commit()
+    return redirect(url_for('user.profile',
+                            screen_name=canvas.artist.screen_name))
+
+
 @bp.route('/<screen_name>/<int:canvas_id>/')
 def view(screen_name, canvas_id):
     """Displays a canvas work."""
