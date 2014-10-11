@@ -12,7 +12,7 @@ var Trace = function(x, y, p, t) {
     this.t = t;
 };
 
-var Brush = function(size, globalAlpha, spacing) {
+var Brush = function(radius, globalAlpha, spacing) {
     var distance;
     var prevX;
     var prevY;
@@ -21,7 +21,7 @@ var Brush = function(size, globalAlpha, spacing) {
     var lastY;
     var direction;
     this.name = 'arc';
-    this.size = size;
+    this.radius = radius;
     this.globalAlpha = globalAlpha;
     this.spacing = spacing;
     this.draw = function(canvas, trace) {
@@ -30,7 +30,7 @@ var Brush = function(size, globalAlpha, spacing) {
         ctx.fillStyle = this.fillStyle;
         ctx.globalCompositeOperation = this.globalCompositeOperation;
         ctx.beginPath();
-        ctx.arc(trace.x, trace.y, trace.p * this.size, 0, Math.PI * 2);
+        ctx.arc(trace.x, trace.y, trace.p * this.radius, 0, Math.PI * 2);
         ctx.fill();
         ctx.closePath();
     };
@@ -56,7 +56,7 @@ var Brush = function(size, globalAlpha, spacing) {
             var ld = Math.sqrt(ldx * ldx + ldy * ldy);
             direction = Math.atan2(ldy, ldx);
             var midScale = (prevP + trace.p) / 2;
-            var drawSpacing = this.size * this.spacing * midScale;
+            var drawSpacing = this.radius * this.spacing * midScale;
             if (drawSpacing === 0) {
                 return
             }
@@ -113,7 +113,7 @@ $(document).ready(function() {
         }
         isDrawing = true;
         brush = new Brush(
-            $('#size').val(),
+            $('#radius').val(),
             $('#flow').val(),
             $('#spacing').val()
         );
