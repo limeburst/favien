@@ -25,11 +25,9 @@
         {% endif %}
     </ul>
     <img id="canvas" src="{{ canvas.get_url() }}">
-    <p>
-        {% if canvas.description %}
+    {% if canvas.description %}
+        <p>
             {{ canvas.description }}
-        {% else %}
-            {% trans -%} No description {%- endtrans %}
-        {% endif %}
-    </p>
+        </p>
+    {% endif %}
 {% endblock %}

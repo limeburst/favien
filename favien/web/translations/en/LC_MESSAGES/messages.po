@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Favien dev\n"
 "Report-Msgid-Bugs-To: me@limeburst.net\n"
-"POT-Creation-Date: 2014-10-11 20:01+0900\n"
+"POT-Creation-Date: 2014-10-11 20:09+0900\n"
 "PO-Revision-Date: 2014-10-03 15:35+0900\n"
 "Last-Translator: Jihyeok Seo <me@limeburst.net>\n"
 "Language-Team: en <me@limeburst.net>\n"
@@ -52,11 +52,6 @@ msgstr[1] "%(number)s canvases"
 msgid "Untitled"
 msgstr "Untitled"
 
-#: favien/web/templates/profile.html:29
-#: favien/web/templates/canvas/view_canvas.html:32
-msgid "No description"
-msgstr "No description"
-
 #: favien/web/templates/canvas/new_canvas.html:10
 msgid "Description"
 msgstr "Description"
@@ -88,4 +83,7 @@ msgstr "Flow"
 #: favien/web/templates/canvas/new_canvas.html:40
 msgid "Spacing"
 msgstr "Spacing"
+
+#~ msgid "No description"
+#~ msgstr "No description"
 

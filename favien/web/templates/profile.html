@@ -22,12 +22,7 @@
                         {% else %}
                             {% trans -%} Untitled {%- endtrans %}
                         {% endif %}
-                    </a> -
-                    {% if canvas.description %}
-                        {{ canvas.description }}
-                    {% else %}
-                        {% trans -%} No description {%- endtrans %}
-                    {% endif %}
+                    </a>
                 </li>
             {% endfor %}
         </ul>

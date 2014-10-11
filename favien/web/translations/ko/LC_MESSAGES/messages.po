@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Favien dev\n"
 "Report-Msgid-Bugs-To: me@limeburst.net\n"
-"POT-Creation-Date: 2014-10-11 20:01+0900\n"
+"POT-Creation-Date: 2014-10-11 20:09+0900\n"
 "PO-Revision-Date: 2014-10-03 01:44+0900\n"
 "Last-Translator: Jihyeok Seo <me@limeburst.net>\n"
 "Language-Team: ko <me@limeburst.net>\n"
@@ -51,11 +51,6 @@ msgstr[0] "%(number)s개의 캔버스"
 msgid "Untitled"
 msgstr "제목 없음"
 
-#: favien/web/templates/profile.html:29
-#: favien/web/templates/canvas/view_canvas.html:32
-msgid "No description"
-msgstr "설명 없음"
-
 #: favien/web/templates/canvas/new_canvas.html:10
 msgid "Description"
 msgstr "설명"
@@ -87,4 +82,7 @@ msgstr "흐름"
 #: favien/web/templates/canvas/new_canvas.html:40
 msgid "Spacing"
 msgstr "간격"
+
+#~ msgid "No description"
+#~ msgstr "설명 없음"
 
