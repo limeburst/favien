@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
 {% block body %}
+    <p>
+        {% trans name=config.SERVICE_NAME -%}
+            {{ name }} is a place where anyone can create and share their drawings.
+        {%- endtrans %}
+    </p>
     <h2>{% trans -%} Recent canvases {%- endtrans %}</h2>
     <ol>
         {% for canvas in new_canvases %}

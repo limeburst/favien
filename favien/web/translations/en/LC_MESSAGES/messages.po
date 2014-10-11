@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Favien dev\n"
 "Report-Msgid-Bugs-To: me@limeburst.net\n"
-"POT-Creation-Date: 2014-10-11 18:55+0900\n"
+"POT-Creation-Date: 2014-10-11 20:01+0900\n"
 "PO-Revision-Date: 2014-10-03 15:35+0900\n"
 "Last-Translator: Jihyeok Seo <me@limeburst.net>\n"
 "Language-Team: en <me@limeburst.net>\n"
@@ -30,7 +30,12 @@ msgstr "Sign out"
 msgid "New canvas"
 msgstr "New canvas"
 
-#: favien/web/templates/home.html:4
+#: favien/web/templates/home.html:5
+#, python-format
+msgid "%(name)s is a place where anyone can create and share their drawings."
+msgstr "%(name)s is a place where anyone can create and share their drawings."
+
+#: favien/web/templates/home.html:9
 msgid "Recent canvases"
 msgstr "Recent canvases"
 
