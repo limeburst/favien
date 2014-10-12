@@ -1,9 +1,48 @@
+body {
+    font-family: 'Menlo', monospace;
+}
+
+a,
+a:visited {
+    color: black;
+}
+
+img {
+    box-sizing: border-box;
+    display: block;
+    max-width: 100%;
+}
+
+ol img {
+    height: 10rem;
+}
+
+canvas, img {
+    border-style: solid;
+}
+
+canvas,
+canvas + aside {
+    float: left;
+}
+
+ol,
+h2 + ul,
+nav > ul {
+    padding-left: 0;
+}
+
+h1,
+h2,
+nav,
+nav > ul > li,
+h2 + ul,
+h2 + ul > li,
+h2 + ol > li  {
+    display: inline-block;
+}
+
 #wacom {
     position: absolute;
     visibility: hidden;
-}
-
-#canvas {
-    -webkit-user-select: none;
-    box-shadow: 0 0 1cm #000;
 }
