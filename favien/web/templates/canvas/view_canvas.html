@@ -24,7 +24,7 @@
         </li>
         {% if canvas.artist == current_user %}
             <li>
-                <a href="{{ url_for('canvas.delete', screen_name=canvas.artist.screen_name, canvas_id=canvas.id) }}">Delete</a>
+                <a href="{{ url_for('canvas.edit_form', screen_name=canvas.artist.screen_name, canvas_id=canvas.id) }}">{% trans -%} Edit {%- endtrans %}</a>
             </li>
         {% endif %}
     </ul>

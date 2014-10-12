@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if canvas.title %}
+        {{ canvas.title }}
+    {% else %}
+        {% trans -%} Untitled {%- endtrans %}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <h2>
+        <a href="{{ url_for('canvas.view', screen_name=canvas.artist.screen_name, canvas_id=canvas.id) }}">
+            {% if canvas.title %}
+                {{ canvas.title }}
+            {% else %}
+                {% trans -%} Untitled {%- endtrans %}
+            {% endif %}
+        </a>
+    </h2>
+    <ul>
+        <li>
+            <a rel="author" href="{{ url_for('user.profile', screen_name=canvas.artist.screen_name) }}">{{ canvas.artist.screen_name }}</a>
+        </li>
+        <li>
+            <a class="dangerous" href="{{ url_for('canvas.delete', screen_name=canvas.artist.screen_name, canvas_id=canvas.id) }}">{% trans -%} Delete {%- endtrans %}</a>
+        </li>
+    </ul>
+    <img id="canvas" src="{{ canvas.get_url() }}">
+    <form action="{{ url_for('canvas.edit', screen_name=canvas.artist.screen_name, canvas_id=canvas.id) }}" method="POST">
+        <ul>
+            <li>
+                <input name="title" type="text" placeholder="{% trans -%} Title {%- endtrans %}" value="{{ canvas.title if canvas.title }}">
+            </li>
+            <li>
+                <textarea name="description" placeholder="{% trans -%} Description {%- endtrans %}">{{ canvas.description if canvas.description }}</textarea>
+            </li>
+            <li>
+                <input type="submit" value="{% trans -%} Save {%- endtrans %}" >
+            </li>
+        </ul>
+    </form>
+{% endblock %}

@@ -43,7 +43,7 @@
         <form id="save" action="{{ url_for('canvas.add', screen_name=current_user.screen_name) }}" method="POST">
             <ul>
                 <li>
-                    <input id="title" type="text" placeholder="{% trans -%} Untitled {%- endtrans %}">
+                    <input id="title" type="text" placeholder="{% trans -%} Title {%- endtrans %}">
                 </li>
                 <li>
                     <textarea id="description" placeholder="{% trans -%} Description {%- endtrans %}"></textarea>

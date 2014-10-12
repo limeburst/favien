@@ -46,3 +46,7 @@ h2 + ol > li  {
     position: absolute;
     visibility: hidden;
 }
+
+.dangerous {
+    color: red;
+}

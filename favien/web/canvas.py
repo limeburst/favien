@@ -51,6 +51,35 @@ def add(screen_name):
                                     canvas_id=canvas.id))
 
 
+@bp.route('/<screen_name>/<int:canvas_id>/', methods=['POST'])
+def edit(screen_name, canvas_id):
+    """Edits a canvas."""
+    canvas = get_canvas(screen_name, canvas_id)
+    if not canvas:
+        abort(404)
+    if canvas.artist != current_user:
+        abort(400)
+    else:
+        canvas.title = request.form.get('title')
+        canvas.description = request.form.get('description')
+        session.add(canvas)
+        session.commit()
+    return redirect(url_for('canvas.view', screen_name=screen_name,
+                            canvas_id=canvas_id))
+
+
+@bp.route('/<screen_name>/<int:canvas_id>/edit/')
+def edit_form(screen_name, canvas_id):
+    """Canvas edit page."""
+    canvas = get_canvas(screen_name, canvas_id)
+    if not canvas:
+        abort(404)
+    if canvas.artist != current_user:
+        abort(400)
+    else:
+        return render_template('canvas/edit_canvas.html', canvas=canvas)
+
+
 @bp.route('/<screen_name>/<int:canvas_id>/delete/')
 def delete(screen_name, canvas_id):
     """Deletes a canvas."""

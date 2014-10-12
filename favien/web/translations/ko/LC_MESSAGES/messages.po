@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Favien dev\n"
 "Report-Msgid-Bugs-To: me@limeburst.net\n"
-"POT-Creation-Date: 2014-10-12 23:40+0900\n"
+"POT-Creation-Date: 2014-10-13 05:05+0900\n"
 "PO-Revision-Date: 2014-10-03 01:44+0900\n"
 "Last-Translator: Jihyeok Seo <me@limeburst.net>\n"
 "Language-Team: ko <me@limeburst.net>\n"
@@ -50,11 +50,31 @@ msgid "Canvases"
 msgstr "캔버스"
 
 #: favien/web/templates/profile.html:31
-#: favien/web/templates/canvas/new_canvas.html:46
+#: favien/web/templates/canvas/edit_canvas.html:7
+#: favien/web/templates/canvas/edit_canvas.html:17
 #: favien/web/templates/canvas/view_canvas.html:7
 #: favien/web/templates/canvas/view_canvas.html:17
 msgid "Untitled"
 msgstr "제목 없음"
+
+#: favien/web/templates/canvas/edit_canvas.html:26
+msgid "Delete"
+msgstr "삭제"
+
+#: favien/web/templates/canvas/edit_canvas.html:33
+#: favien/web/templates/canvas/new_canvas.html:46
+msgid "Title"
+msgstr "제목"
+
+#: favien/web/templates/canvas/edit_canvas.html:36
+#: favien/web/templates/canvas/new_canvas.html:49
+msgid "Description"
+msgstr "설명"
+
+#: favien/web/templates/canvas/edit_canvas.html:39
+#: favien/web/templates/canvas/new_canvas.html:52
+msgid "Save"
+msgstr "저장"
 
 #: favien/web/templates/canvas/new_canvas.html:13
 msgid "Width"
@@ -84,13 +104,9 @@ msgstr "흐름"
 msgid "Spacing"
 msgstr "간격"
 
-#: favien/web/templates/canvas/new_canvas.html:49
-msgid "Description"
-msgstr "설명"
-
-#: favien/web/templates/canvas/new_canvas.html:52
-msgid "Save"
-msgstr "저장"
+#: favien/web/templates/canvas/view_canvas.html:27
+msgid "Edit"
+msgstr "수정"
 
 #~ msgid "No description"
 #~ msgstr "설명 없음"

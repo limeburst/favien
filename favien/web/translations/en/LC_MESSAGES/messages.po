@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Favien dev\n"
 "Report-Msgid-Bugs-To: me@limeburst.net\n"
-"POT-Creation-Date: 2014-10-12 23:40+0900\n"
+"POT-Creation-Date: 2014-10-13 05:05+0900\n"
 "PO-Revision-Date: 2014-10-03 15:35+0900\n"
 "Last-Translator: Jihyeok Seo <me@limeburst.net>\n"
 "Language-Team: en <me@limeburst.net>\n"
@@ -51,11 +51,31 @@ msgid "Canvases"
 msgstr "Canvases"
 
 #: favien/web/templates/profile.html:31
-#: favien/web/templates/canvas/new_canvas.html:46
+#: favien/web/templates/canvas/edit_canvas.html:7
+#: favien/web/templates/canvas/edit_canvas.html:17
 #: favien/web/templates/canvas/view_canvas.html:7
 #: favien/web/templates/canvas/view_canvas.html:17
 msgid "Untitled"
 msgstr "Untitled"
+
+#: favien/web/templates/canvas/edit_canvas.html:26
+msgid "Delete"
+msgstr "Delete"
+
+#: favien/web/templates/canvas/edit_canvas.html:33
+#: favien/web/templates/canvas/new_canvas.html:46
+msgid "Title"
+msgstr "Title"
+
+#: favien/web/templates/canvas/edit_canvas.html:36
+#: favien/web/templates/canvas/new_canvas.html:49
+msgid "Description"
+msgstr "Description"
+
+#: favien/web/templates/canvas/edit_canvas.html:39
+#: favien/web/templates/canvas/new_canvas.html:52
+msgid "Save"
+msgstr "Save"
 
 #: favien/web/templates/canvas/new_canvas.html:13
 msgid "Width"
@@ -85,13 +105,9 @@ msgstr "Flow"
 msgid "Spacing"
 msgstr "Spacing"
 
-#: favien/web/templates/canvas/new_canvas.html:49
-msgid "Description"
-msgstr "Description"
-
-#: favien/web/templates/canvas/new_canvas.html:52
-msgid "Save"
-msgstr "Save"
+#: favien/web/templates/canvas/view_canvas.html:27
+msgid "Edit"
+msgstr "Edit"
 
 #~ msgid "No description"
 #~ msgstr "No description"
