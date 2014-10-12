@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Favien dev\n"
 "Report-Msgid-Bugs-To: me@limeburst.net\n"
-"POT-Creation-Date: 2014-10-12 23:37+0900\n"
+"POT-Creation-Date: 2014-10-12 23:40+0900\n"
 "PO-Revision-Date: 2014-10-03 15:35+0900\n"
 "Last-Translator: Jihyeok Seo <me@limeburst.net>\n"
 "Language-Team: en <me@limeburst.net>\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: favien/web/templates/base.html:26
+#: favien/web/templates/base.html:25
 msgid "Sign in with Twitter"
 msgstr "Sign in with Twitter"
 
-#: favien/web/templates/base.html:37
+#: favien/web/templates/base.html:36
 msgid "Sign out"
 msgstr "Sign out"
 
-#: favien/web/templates/base.html:42
+#: favien/web/templates/base.html:41
 #: favien/web/templates/canvas/new_canvas.html:4
 msgid "New canvas"
 msgstr "New canvas"
@@ -51,45 +51,45 @@ msgid "Canvases"
 msgstr "Canvases"
 
 #: favien/web/templates/profile.html:31
-#: favien/web/templates/canvas/new_canvas.html:50
+#: favien/web/templates/canvas/new_canvas.html:46
 #: favien/web/templates/canvas/view_canvas.html:7
 #: favien/web/templates/canvas/view_canvas.html:17
 msgid "Untitled"
 msgstr "Untitled"
 
-#: favien/web/templates/canvas/new_canvas.html:17
+#: favien/web/templates/canvas/new_canvas.html:13
 msgid "Width"
 msgstr "Width"
 
-#: favien/web/templates/canvas/new_canvas.html:21
+#: favien/web/templates/canvas/new_canvas.html:17
 msgid "Height"
 msgstr "Height"
 
-#: favien/web/templates/canvas/new_canvas.html:27
+#: favien/web/templates/canvas/new_canvas.html:23
 msgid "Eraser"
 msgstr "Eraser"
 
-#: favien/web/templates/canvas/new_canvas.html:31
+#: favien/web/templates/canvas/new_canvas.html:27
 msgid "Color"
 msgstr "Color"
 
-#: favien/web/templates/canvas/new_canvas.html:35
+#: favien/web/templates/canvas/new_canvas.html:31
 msgid "Radius"
 msgstr "Radius"
 
-#: favien/web/templates/canvas/new_canvas.html:39
+#: favien/web/templates/canvas/new_canvas.html:35
 msgid "Flow"
 msgstr "Flow"
 
-#: favien/web/templates/canvas/new_canvas.html:43
+#: favien/web/templates/canvas/new_canvas.html:39
 msgid "Spacing"
 msgstr "Spacing"
 
-#: favien/web/templates/canvas/new_canvas.html:53
+#: favien/web/templates/canvas/new_canvas.html:49
 msgid "Description"
 msgstr "Description"
 
-#: favien/web/templates/canvas/new_canvas.html:56
+#: favien/web/templates/canvas/new_canvas.html:52
 msgid "Save"
 msgstr "Save"
 

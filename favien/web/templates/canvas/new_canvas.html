@@ -4,10 +4,6 @@
     {% trans -%} New canvas {%- endtrans %}
 {% endblock %}
 
-{% block css %}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='canvas.css') }}">
-{% endblock %}
-
 {% block body %}
     <object id="wacom" type="application/x-wacomtabletplugin"></object>
     <canvas id="canvas" width="600" height="300"></canvas>
