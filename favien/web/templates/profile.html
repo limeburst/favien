@@ -22,7 +22,7 @@
     {% if user.canvases %}
         <h3>{% trans -%} Canvases {%- endtrans %}</h3>
         <ol>
-            {% for canvas in user.canvases %}
+            {% for canvas in user.canvases|reverse %}
                 <li>
                     <a href="{{ url_for('canvas.view', screen_name=user.screen_name, canvas_id=canvas.id) }}">
                         {% if canvas.title %}
