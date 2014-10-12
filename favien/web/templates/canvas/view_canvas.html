@@ -1,7 +1,11 @@
-{% extends 'canvas/canvas_base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}
-    {{ canvas.title }}
+    {% if canvas.title %}
+        {{ canvas.title }}
+    {% else %}
+        {% trans -%} Untitled {%- endtrans %}
+    {% endif %}
 {% endblock %}
 
 {% block body %}
