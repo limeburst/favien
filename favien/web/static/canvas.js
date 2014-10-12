@@ -12,7 +12,7 @@ var Trace = function(x, y, p, t) {
     this.t = t;
 };
 
-var Brush = function(radius, globalAlpha, spacing) {
+var Brush = function(radius, globalAlpha, spacing, fillStyle, globalCompositeOperation) {
     var distance;
     var prevX;
     var prevY;
@@ -24,6 +24,8 @@ var Brush = function(radius, globalAlpha, spacing) {
     this.radius = radius;
     this.globalAlpha = globalAlpha;
     this.spacing = spacing;
+    this.fillStyle = fillStyle;
+    this.globalCompositeOperation = globalCompositeOperation;
     this.draw = function(canvas, trace) {
         var ctx = canvas[0].getContext('2d');
         ctx.globalAlpha = this.globalAlpha;
@@ -100,6 +102,24 @@ function getPressure(wacom) {
     }
 }
 
+function getGlobalCompositeOperation(wacom) {
+    var destinationOut = 'destination-out';
+    var sourceOver = 'source-over';
+    if (wacom === undefined) {
+        if ($('#eraser').is(':checked')) {
+            return destinationOut
+        } else {
+            return sourceOver
+        }
+    } else {
+        if (wacom.isEraser) {
+            return destinationOut
+        } else {
+            return sourceOver
+        }
+    }
+}
+
 $(document).ready(function() {
     var wacom = document.getElementById('wacom').penAPI;
     var strokes = [];
@@ -115,14 +135,10 @@ $(document).ready(function() {
         brush = new Brush(
             $('#radius').val(),
             $('#flow').val(),
-            $('#spacing').val()
+            $('#spacing').val(),
+            $('#color').val(),
+            getGlobalCompositeOperation(wacom)
         );
-        if ($('#eraser').is(':checked')) {
-            brush.globalCompositeOperation = 'destination-out';
-        } else {
-            brush.globalCompositeOperation = 'source-over';
-            brush.fillStyle = $('#color').val();
-        }
         stroke = new Stroke(brush);
         brush.down(canvas, new Trace(e.offsetX, e.offsetY, getPressure(wacom), new Date().getTime()));
     });
