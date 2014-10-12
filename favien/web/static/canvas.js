@@ -156,6 +156,7 @@ $(document).ready(function() {
         stroke = undefined;
     });
     save.submit(function(e) {
+        $('#submit').prop('disabled', true);
         $.ajax({
             url: save[0].action,
             type: save[0].method,
@@ -168,6 +169,9 @@ $(document).ready(function() {
             },
             success: function(data) {
                 window.location.replace(data.location);
+            },
+            error: function() {
+                $('#submit').prop('disabled', false);
             }
         });
         e.preventDefault();
