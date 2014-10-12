@@ -92,8 +92,7 @@ var stroke;
 var isLocked;
 var isDrawing;
 
-function getPressure() {
-    var wacom = document.getElementById('wacom').penAPI;
+function getPressure(wacom) {
     if (wacom === undefined) {
         return 0.5
     } else {
@@ -102,6 +101,7 @@ function getPressure() {
 }
 
 $(document).ready(function() {
+    var wacom = document.getElementById('wacom').penAPI;
     var strokes = [];
     var save = $('#save');
     var canvas = $('#canvas');
@@ -124,11 +124,11 @@ $(document).ready(function() {
             brush.fillStyle = $('#color').val();
         }
         stroke = new Stroke(brush);
-        brush.down(canvas, new Trace(e.offsetX, e.offsetY, getPressure(), new Date().getTime()));
+        brush.down(canvas, new Trace(e.offsetX, e.offsetY, getPressure(wacom), new Date().getTime()));
     });
     canvas.on('mousemove', function(e) {
         if (isDrawing) {
-            brush.move(canvas, new Trace(e.offsetX, e.offsetY, getPressure(), new Date().getTime()));
+            brush.move(canvas, new Trace(e.offsetX, e.offsetY, getPressure(wacom), new Date().getTime()));
         }
     });
     canvas.on('mouseup mouseleave', function() {
