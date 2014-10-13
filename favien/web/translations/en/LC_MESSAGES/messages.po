@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Favien dev\n"
 "Report-Msgid-Bugs-To: me@limeburst.net\n"
-"POT-Creation-Date: 2014-10-13 05:05+0900\n"
+"POT-Creation-Date: 2014-10-14 01:27+0900\n"
 "PO-Revision-Date: 2014-10-03 15:35+0900\n"
 "Last-Translator: Jihyeok Seo <me@limeburst.net>\n"
 "Language-Team: en <me@limeburst.net>\n"
@@ -63,17 +63,17 @@ msgid "Delete"
 msgstr "Delete"
 
 #: favien/web/templates/canvas/edit_canvas.html:33
-#: favien/web/templates/canvas/new_canvas.html:46
+#: favien/web/templates/canvas/new_canvas.html:50
 msgid "Title"
 msgstr "Title"
 
 #: favien/web/templates/canvas/edit_canvas.html:36
-#: favien/web/templates/canvas/new_canvas.html:49
+#: favien/web/templates/canvas/new_canvas.html:53
 msgid "Description"
 msgstr "Description"
 
 #: favien/web/templates/canvas/edit_canvas.html:39
-#: favien/web/templates/canvas/new_canvas.html:52
+#: favien/web/templates/canvas/new_canvas.html:56
 msgid "Save"
 msgstr "Save"
 
@@ -86,22 +86,26 @@ msgid "Height"
 msgstr "Height"
 
 #: favien/web/templates/canvas/new_canvas.html:23
+msgid "Tablet"
+msgstr "Tablet"
+
+#: favien/web/templates/canvas/new_canvas.html:27
 msgid "Eraser"
 msgstr "Eraser"
 
-#: favien/web/templates/canvas/new_canvas.html:27
+#: favien/web/templates/canvas/new_canvas.html:31
 msgid "Color"
 msgstr "Color"
 
-#: favien/web/templates/canvas/new_canvas.html:31
+#: favien/web/templates/canvas/new_canvas.html:35
 msgid "Radius"
 msgstr "Radius"
 
-#: favien/web/templates/canvas/new_canvas.html:35
+#: favien/web/templates/canvas/new_canvas.html:39
 msgid "Flow"
 msgstr "Flow"
 
-#: favien/web/templates/canvas/new_canvas.html:39
+#: favien/web/templates/canvas/new_canvas.html:43
 msgid "Spacing"
 msgstr "Spacing"
 

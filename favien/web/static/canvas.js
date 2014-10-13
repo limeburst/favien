@@ -92,28 +92,39 @@ var isLocked;
 var isDrawing;
 
 function getPressure(wacom) {
-    if (wacom === undefined) {
-        return 0.5
+    var defaultPressure = 0.5;
+    if ($('#tablet').is(':checked')) {
+        if (wacom === undefined) {
+            return defaultPressure
+        } else {
+            return wacom.pressure
+        }
     } else {
-        return wacom.pressure
+        return defaultPressure
     }
 }
 
 function getGlobalCompositeOperation(wacom) {
     var destinationOut = 'destination-out';
     var sourceOver = 'source-over';
-    if (wacom === undefined) {
-        if ($('#eraser').is(':checked')) {
-            return destinationOut
+    var defaultOperation;
+    if ($('#eraser').is(':checked')) {
+        defaultOperation = destinationOut
+    } else {
+        defaultOperation = sourceOver
+    }
+    if ($('#tablet').is(':checked')) {
+        if (wacom === undefined) {
+            return defaultOperation
         } else {
-            return sourceOver
+            if (wacom.isEraser) {
+                return destinationOut
+            } else {
+                return sourceOver
+            }
         }
     } else {
-        if (wacom.isEraser) {
-            return destinationOut
-        } else {
-            return sourceOver
-        }
+        return defaultOperation
     }
 }
 
