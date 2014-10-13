@@ -42,7 +42,6 @@ var Brush = function(radius, globalAlpha, spacing, fillStyle, globalCompositeOpe
         lastY = prevY = trace.y;
         prevP = trace.p;
         distance = 0;
-        stroke.traces.push(trace);
         this.draw(canvas, trace);
     };
     this.move = function(canvas, trace) {
@@ -71,7 +70,6 @@ var Brush = function(radius, globalAlpha, spacing, fillStyle, globalCompositeOpe
                 lastX = trace.x;
                 lastY = trace.y;
                 distance -= drawSpacing;
-                stroke.traces.push(trace);
                 this.draw(canvas, new Trace(lastX, lastY, trace.p, new Date().getTime()));
             } else {
                 while (distance >= drawSpacing) {
@@ -81,7 +79,6 @@ var Brush = function(radius, globalAlpha, spacing, fillStyle, globalCompositeOpe
                     lastY += ty * drawSpacing;
                     prevP += scaleSpacing;
                     distance -= drawSpacing;
-                    stroke.traces.push(trace);
                     this.draw(canvas, new Trace(lastX, lastY, prevP, new Date().getTime()));
                 }
             }
@@ -142,12 +139,16 @@ $(document).ready(function() {
                 getGlobalCompositeOperation(wacom)
             );
             stroke = new Stroke(brush);
-            brush.down(canvas, new Trace(e.offsetX, e.offsetY, pressure, new Date().getTime()));
+            var trace = new Trace(e.offsetX, e.offsetY, pressure, new Date().getTime());
+            stroke.traces.push(trace);
+            brush.down(canvas, trace);
         }
     });
     canvas.on('mousemove', function(e) {
         if (isDrawing) {
-            brush.move(canvas, new Trace(e.offsetX, e.offsetY, getPressure(wacom), new Date().getTime()));
+            var trace = new Trace(e.offsetX, e.offsetY, getPressure(wacom), new Date().getTime());
+            stroke.traces.push(trace);
+            brush.move(canvas, trace);
         }
     });
     canvas.on('mouseup mouseleave', function() {
