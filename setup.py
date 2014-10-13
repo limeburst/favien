@@ -39,5 +39,8 @@ setup(
         'redis',
         'requests',
         'requests_oauthlib',
-    ]
+    ],
+    entry_points={
+        'console_scripts': ['fav = favien.cli:cli'],
+    }
 )

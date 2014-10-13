@@ -1,0 +1,3 @@
+
+.. automodule:: favien.cli
+   :members:
