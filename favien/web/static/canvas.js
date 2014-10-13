@@ -126,21 +126,24 @@ $(document).ready(function() {
     var save = $('#save');
     var canvas = $('#canvas');
     canvas.on('mousedown', function(e) {
-        if (!isLocked) {
-            isLocked = true;
-            $('#width').prop('disabled', true);
-            $('#height').prop('disabled', true);
+        var pressure = getPressure(wacom);
+        if (pressure !== 0) {
+            if (!isLocked) {
+                isLocked = true;
+                $('#width').prop('disabled', true);
+                $('#height').prop('disabled', true);
+            }
+            isDrawing = true;
+            brush = new Brush(
+                $('#radius').val(),
+                $('#flow').val(),
+                $('#spacing').val(),
+                $('#color').val(),
+                getGlobalCompositeOperation(wacom)
+            );
+            stroke = new Stroke(brush);
+            brush.down(canvas, new Trace(e.offsetX, e.offsetY, pressure, new Date().getTime()));
         }
-        isDrawing = true;
-        brush = new Brush(
-            $('#radius').val(),
-            $('#flow').val(),
-            $('#spacing').val(),
-            $('#color').val(),
-            getGlobalCompositeOperation(wacom)
-        );
-        stroke = new Stroke(brush);
-        brush.down(canvas, new Trace(e.offsetX, e.offsetY, getPressure(wacom), new Date().getTime()));
     });
     canvas.on('mousemove', function(e) {
         if (isDrawing) {
