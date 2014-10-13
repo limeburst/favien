@@ -36,12 +36,12 @@
                         {% trans -%} Sign out {%- endtrans %}
                     </a>
                 </li>
-                <li>
-                    <a href="{{ url_for('canvas.new') }}">
-                        {% trans -%} New canvas {%- endtrans %}
-                    </a>
-                </li>
             {% endif %}
+            <li>
+                <a href="{{ url_for('canvas.new') }}">
+                    {% trans -%} New canvas {%- endtrans %}
+                </a>
+            </li>
         </ul>
     </nav>
 </header>

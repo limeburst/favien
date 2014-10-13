@@ -107,6 +107,4 @@ def view(screen_name, canvas_id):
 @bp.route('/new/')
 def new():
     """Draw a new canvas."""
-    if not current_user:
-        abort(401)
     return render_template('canvas/new_canvas.html')

@@ -44,19 +44,21 @@
                 <input type="range" id="spacing" value="0.5" min="0.1" max="5" step="0.1">
             </li>
         </ul>
-        <form id="save" action="{{ url_for('canvas.add', screen_name=current_user.screen_name) }}" method="POST">
-            <ul>
-                <li>
-                    <input id="title" type="text" placeholder="{% trans -%} Title {%- endtrans %}">
-                </li>
-                <li>
-                    <textarea id="description" placeholder="{% trans -%} Description {%- endtrans %}"></textarea>
-                </li>
-                <li>
-                    <input id="submit" type="submit" value="{% trans -%} Save {%- endtrans %}" >
-                </li>
-            </ul>
-        </form>
+        {% if current_user %}
+            <form id="save" action="{{ url_for('canvas.add', screen_name=current_user.screen_name) }}" method="POST">
+                <ul>
+                    <li>
+                        <input id="title" type="text" placeholder="{% trans -%} Title {%- endtrans %}">
+                    </li>
+                    <li>
+                        <textarea id="description" placeholder="{% trans -%} Description {%- endtrans %}"></textarea>
+                    </li>
+                    <li>
+                        <input id="submit" type="submit" value="{% trans -%} Save {%- endtrans %}" >
+                    </li>
+                </ul>
+            </form>
+        {% endif %}
     </aside>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='canvas.js') }}"></script>
