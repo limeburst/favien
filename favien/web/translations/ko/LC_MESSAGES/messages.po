@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Favien dev\n"
 "Report-Msgid-Bugs-To: me@limeburst.net\n"
-"POT-Creation-Date: 2014-10-14 01:27+0900\n"
+"POT-Creation-Date: 2014-10-14 17:01+0900\n"
 "PO-Revision-Date: 2014-10-03 01:44+0900\n"
 "Last-Translator: Jihyeok Seo <me@limeburst.net>\n"
 "Language-Team: ko <me@limeburst.net>\n"
@@ -25,7 +25,7 @@ msgstr "트위터로 로그인"
 msgid "Sign out"
 msgstr "로그아웃"
 
-#: favien/web/templates/base.html:41
+#: favien/web/templates/base.html:42
 #: favien/web/templates/canvas/new_canvas.html:4
 msgid "New canvas"
 msgstr "새 캔버스"
@@ -62,17 +62,17 @@ msgid "Delete"
 msgstr "삭제"
 
 #: favien/web/templates/canvas/edit_canvas.html:33
-#: favien/web/templates/canvas/new_canvas.html:50
+#: favien/web/templates/canvas/new_canvas.html:51
 msgid "Title"
 msgstr "제목"
 
 #: favien/web/templates/canvas/edit_canvas.html:36
-#: favien/web/templates/canvas/new_canvas.html:53
+#: favien/web/templates/canvas/new_canvas.html:54
 msgid "Description"
 msgstr "설명"
 
 #: favien/web/templates/canvas/edit_canvas.html:39
-#: favien/web/templates/canvas/new_canvas.html:56
+#: favien/web/templates/canvas/new_canvas.html:57
 msgid "Save"
 msgstr "저장"
 
@@ -111,6 +111,10 @@ msgstr "간격"
 #: favien/web/templates/canvas/view_canvas.html:27
 msgid "Edit"
 msgstr "수정"
+
+#: favien/web/templates/canvas/view_canvas.html:33
+msgid "Replay"
+msgstr "리플레이"
 
 #~ msgid "No description"
 #~ msgstr "설명 없음"

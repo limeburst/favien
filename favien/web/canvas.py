@@ -104,6 +104,15 @@ def view(screen_name, canvas_id):
     return render_template('canvas/view_canvas.html', canvas=canvas)
 
 
+@bp.route('/<screen_name>/<int:canvas_id>/strokes/')
+def strokes(screen_name, canvas_id):
+    """Canvas strokes for replaying."""
+    canvas = get_canvas(screen_name, canvas_id)
+    if not canvas:
+        abort(404)
+    return jsonify(strokes=canvas.strokes)
+
+
 @bp.route('/new/')
 def new():
     """Draw a new canvas."""
