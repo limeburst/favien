@@ -37,7 +37,6 @@ var Brush = function(radius, globalAlpha, spacing, fillStyle, globalCompositeOpe
         ctx.closePath();
     };
     this.down = function(canvas, trace) {
-        isDrawing = true;
         lastX = prevX = trace.x;
         lastY = prevY = trace.y;
         prevP = trace.p;
@@ -45,42 +44,40 @@ var Brush = function(radius, globalAlpha, spacing, fillStyle, globalCompositeOpe
         this.draw(canvas, trace);
     };
     this.move = function(canvas, trace) {
-        if (isDrawing) {
-            var dx = trace.x - prevX;
-            var dy = trace.y - prevY;
-            var dp = trace.p - prevP;
-            distance += Math.sqrt(dx * dx + dy * dy);
-            prevX = trace.x;
-            prevY = trace.y;
-            var ldx = trace.x - lastX;
-            var ldy = trace.y - lastY;
-            var ld = Math.sqrt(ldx * ldx + ldy * ldy);
-            direction = Math.atan2(ldy, ldx);
-            var midScale = (prevP + trace.p) / 2;
-            var drawSpacing = this.radius * this.spacing * midScale;
-            if (drawSpacing === 0) {
-                return
-            }
-            if (distance < drawSpacing) {
-                prevP = trace.p;
-                return
-            }
-            var scaleSpacing = dp * (drawSpacing / distance);
-            if (ld < drawSpacing) {
-                lastX = trace.x;
-                lastY = trace.y;
+        var dx = trace.x - prevX;
+        var dy = trace.y - prevY;
+        var dp = trace.p - prevP;
+        distance += Math.sqrt(dx * dx + dy * dy);
+        prevX = trace.x;
+        prevY = trace.y;
+        var ldx = trace.x - lastX;
+        var ldy = trace.y - lastY;
+        var ld = Math.sqrt(ldx * ldx + ldy * ldy);
+        direction = Math.atan2(ldy, ldx);
+        var midScale = (prevP + trace.p) / 2;
+        var drawSpacing = this.radius * this.spacing * midScale;
+        if (drawSpacing === 0) {
+            return
+        }
+        if (distance < drawSpacing) {
+            prevP = trace.p;
+            return
+        }
+        var scaleSpacing = dp * (drawSpacing / distance);
+        if (ld < drawSpacing) {
+            lastX = trace.x;
+            lastY = trace.y;
+            distance -= drawSpacing;
+            this.draw(canvas, new Trace(lastX, lastY, trace.p, new Date().getTime()));
+        } else {
+            while (distance >= drawSpacing) {
+                var tx = Math.cos(direction);
+                var ty = Math.sin(direction);
+                lastX += tx * drawSpacing;
+                lastY += ty * drawSpacing;
+                prevP += scaleSpacing;
                 distance -= drawSpacing;
-                this.draw(canvas, new Trace(lastX, lastY, trace.p, new Date().getTime()));
-            } else {
-                while (distance >= drawSpacing) {
-                    var tx = Math.cos(direction);
-                    var ty = Math.sin(direction);
-                    lastX += tx * drawSpacing;
-                    lastY += ty * drawSpacing;
-                    prevP += scaleSpacing;
-                    distance -= drawSpacing;
-                    this.draw(canvas, new Trace(lastX, lastY, prevP, new Date().getTime()));
-                }
+                this.draw(canvas, new Trace(lastX, lastY, prevP, new Date().getTime()));
             }
         }
     };
