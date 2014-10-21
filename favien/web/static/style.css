@@ -9,7 +9,6 @@ a:visited {
 
 img {
     box-sizing: border-box;
-    display: block;
     max-width: 100%;
 }
 
@@ -18,11 +17,12 @@ ol img {
 }
 
 canvas, img {
+    display: block;
     border-style: solid;
 }
 
-canvas,
-canvas + aside {
+#canvas,
+#canvas + aside {
     float: left;
 }
 

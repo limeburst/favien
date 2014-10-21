@@ -127,10 +127,7 @@ function getGlobalCompositeOperation(wacom) {
 }
 
 function replayCanvas() {
-    var canvas = $('#canvas');
-    if (canvas.length === 0) {
-        canvas = $('#replay_canvas');
-    }
+    var canvas = $('#replay_canvas');
     var width = canvas.width();
     var height = canvas.height();
     var playerCanvas = $('<canvas></canvas>')
