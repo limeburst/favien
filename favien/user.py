@@ -4,8 +4,9 @@
 """
 from sqlalchemy.orm import deferred, relationship
 from sqlalchemy.schema import Column
+from sqlalchemy.sql.expression import false
 from sqlalchemy.sql.functions import now
-from sqlalchemy.types import BigInteger, DateTime, Integer, String
+from sqlalchemy.types import BigInteger, Boolean, DateTime, Integer, String
 
 from .orm import Base
 
@@ -30,6 +31,12 @@ class User(Base):
 
     #: (:class:`sqlalchemy.orm.relationship`) The user's canvases.
     canvases = relationship('Canvas', backref='user')
+
+    #: (:class:`sqlalchemy.types.Boolean`) Is this user an administrator?
+    admin = deferred(
+        Column(Boolean, nullable=False, default=False, server_default=false()),
+        group='metadata'
+    )
 
     #: (:class:`sqlalchemy.types.DateTime`) The registered time.
     created_at = deferred(

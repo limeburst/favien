@@ -35,7 +35,7 @@ msgstr "새 캔버스"
 msgid "%(name)s is a place where anyone can create and share their drawings."
 msgstr "%(name)s은 누구나 그림을 그리고 공유할 수 있는 사이트입니다."
 
-#: favien/web/templates/home.html:9
+#: favien/web/templates/home.html:10
 msgid "Recent canvases"
 msgstr "최근 캔버스"
 

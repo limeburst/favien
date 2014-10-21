@@ -19,7 +19,7 @@ setup(
     zip_safe=False,
     packages=['favien', 'favien.web'],
     package_data={
-        'favien.web': ['templates/*.*', 'static/*.*',
+        'favien.web': ['templates/*.*', 'templates/*/*.*', 'static/*.*',
                        'translations/*/LC_MESSAGES/*'],
     },
     message_extractors={

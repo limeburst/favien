@@ -55,10 +55,11 @@ def inject_current_user():
 @bp.route('/')
 def home():
     """Home."""
-    new_canvases = session.query(Canvas) \
-                          .order_by(Canvas.created_at.desc()) \
-                          .limit(8)
-    return render_template('home.html', new_canvases=new_canvases)
+    recent_canvases = session.query(Canvas) \
+                             .order_by(Canvas.created_at.desc()) \
+                             .limit(8) \
+                             .all()
+    return render_template('home.html', recent_canvases=recent_canvases)
 
 
 @bp.route('/login/')

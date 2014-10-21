@@ -9,6 +9,7 @@
       favien/orm
       favien/user
       favien/web
+      favien/web/admin
       favien/web/canvas
       favien/web/db
       favien/web/user

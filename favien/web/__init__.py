@@ -5,7 +5,7 @@
 from flask import Flask, request
 from flask.ext.babel import Babel
 
-from . import canvas, user
+from . import admin, canvas, user
 from .db import setup_session
 
 
@@ -23,6 +23,7 @@ def create_app(config):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_pyfile(config)
     setup_session(app)
+    app.register_blueprint(admin.bp)
     app.register_blueprint(canvas.bp)
     app.register_blueprint(user.bp)
     babel.init_app(app)

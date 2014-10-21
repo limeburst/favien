@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <table>
+        <tr>
+            <th>screen name</th>
+            <th>canvases</th>
+            <th>created at</th>
+        </tr>
+        {% for user in users %}
+            <tr>
+                <td>
+                    <a href="{{ url_for('user.profile', screen_name=user.screen_name) }}">{{ user.screen_name }}</a>
+                </td>
+                <td>{{ user.canvases|length }}</td>
+                <td>{{ user.created_at }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
