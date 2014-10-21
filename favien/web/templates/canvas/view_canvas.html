@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'canvas/canvas_base.html' %}
 
 {% block title %}
     {% if canvas.title %}
@@ -28,10 +28,14 @@
             </li>
         {% endif %}
     </ul>
-    <img id="canvas" src="{{ canvas.get_url() }}">
+    <img id="replay_canvas" src="{{ canvas.get_url() }}">
+    <aside>
+        <input id="replay" type="button" value="{% trans -%} Replay {%- endtrans %}">
+    </aside>
     {% if canvas.description %}
         <p>
             {{ canvas.description }}
         </p>
     {% endif %}
+    {{ super() }}
 {% endblock %}

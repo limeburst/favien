@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Favien dev\n"
 "Report-Msgid-Bugs-To: me@limeburst.net\n"
-"POT-Creation-Date: 2014-10-19 01:28+0900\n"
+"POT-Creation-Date: 2014-10-14 17:01+0900\n"
 "PO-Revision-Date: 2014-10-03 01:44+0900\n"
 "Last-Translator: Jihyeok Seo <me@limeburst.net>\n"
 "Language-Team: ko <me@limeburst.net>\n"
@@ -111,6 +111,10 @@ msgstr "간격"
 #: favien/web/templates/canvas/view_canvas.html:27
 msgid "Edit"
 msgstr "수정"
+
+#: favien/web/templates/canvas/view_canvas.html:33
+msgid "Replay"
+msgstr "리플레이"
 
 #~ msgid "No description"
 #~ msgstr "설명 없음"

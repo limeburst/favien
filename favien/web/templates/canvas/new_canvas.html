@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'canvas/canvas_base.html' %}
 
 {% block title %}
     {% trans -%} New canvas {%- endtrans %}
@@ -60,6 +60,5 @@
             </form>
         {% endif %}
     </aside>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="{{ url_for('static', filename='canvas.js') }}"></script>
+    {{ super() }}
 {% endblock %}

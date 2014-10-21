@@ -87,6 +87,7 @@ var brush;
 var stroke;
 var isLocked;
 var isDrawing;
+var replayStrokes;
 
 function getPressure(wacom) {
     var defaultPressure = 0.5;
@@ -125,11 +126,44 @@ function getGlobalCompositeOperation(wacom) {
     }
 }
 
+function replayCanvas() {
+    var canvas = $('#replay_canvas');
+    var width = canvas.width();
+    var height = canvas.height();
+    var playerCanvas = $('<canvas></canvas>')
+        .attr('id', 'replay_canvas')
+        .attr('width', width)
+        .attr('height', height);
+    canvas.replaceWith(playerCanvas);
+    $.get('strokes', function(data) {
+        replayStrokes = data.strokes;
+        setInterval(replayStroke, 10);
+    });
+}
+
+function replayStroke() {
+    if (replayStrokes.length) {
+        var playerCanvas = $('#replay_canvas');
+        var stroke = replayStrokes.shift();
+        var brush = new Brush(
+            stroke.brush.radius,
+            stroke.brush.globalAlpha,
+            stroke.brush.spacing,
+            stroke.brush.fillStyle,
+            stroke.brush.globalCompositeOperation
+        );
+        brush.down(playerCanvas, stroke.traces.shift());
+        while (stroke.traces.length) {
+            brush.move(playerCanvas, stroke.traces.shift());
+        }
+    }
+}
+
 $(document).ready(function() {
-    var wacom = document.getElementById('wacom').penAPI;
     var strokes = [];
     var save = $('#save');
     var canvas = $('#canvas');
+    $('#replay').on('click', replayCanvas);
     canvas.on('mousedown', function(e) {
         var pressure = getPressure(wacom);
         if (pressure !== 0) {
