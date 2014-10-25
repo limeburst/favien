@@ -160,10 +160,12 @@ function replayStroke() {
 }
 
 $(document).ready(function() {
-    var wacom = document.getElementById('wacom').penAPI;
     var strokes = [];
     var save = $('#save');
     var canvas = $('#canvas');
+    if (canvas.length) {
+        var wacom = document.getElementById('wacom').penAPI;
+    }
     $('#replay').on('click', replayCanvas);
     canvas.on('mousedown', function(e) {
         var pressure = getPressure(wacom);
