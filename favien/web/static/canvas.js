@@ -160,6 +160,7 @@ function replayStroke() {
 }
 
 $(document).ready(function() {
+    var wacom = document.getElementById('wacom').penAPI;
     var strokes = [];
     var save = $('#save');
     var canvas = $('#canvas');
