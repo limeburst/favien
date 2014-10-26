@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Favien dev\n"
 "Report-Msgid-Bugs-To: me@limeburst.net\n"
-"POT-Creation-Date: 2014-10-14 17:01+0900\n"
+"POT-Creation-Date: 2014-10-26 19:09+0900\n"
 "PO-Revision-Date: 2014-10-03 15:35+0900\n"
 "Last-Translator: Jihyeok Seo <me@limeburst.net>\n"
 "Language-Team: en <me@limeburst.net>\n"
@@ -74,6 +74,11 @@ msgstr "Description"
 
 #: favien/web/templates/canvas/edit_canvas.html:39
 #: favien/web/templates/canvas/new_canvas.html:57
+msgid "Allow Replay"
+msgstr "Allow Replay"
+
+#: favien/web/templates/canvas/edit_canvas.html:43
+#: favien/web/templates/canvas/new_canvas.html:61
 msgid "Save"
 msgstr "Save"
 
@@ -113,7 +118,7 @@ msgstr "Spacing"
 msgid "Edit"
 msgstr "Edit"
 
-#: favien/web/templates/canvas/view_canvas.html:33
+#: favien/web/templates/canvas/view_canvas.html:34
 msgid "Replay"
 msgstr "Replay"
 

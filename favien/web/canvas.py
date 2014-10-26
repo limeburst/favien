@@ -42,6 +42,10 @@ def add(screen_name):
                     title=request.form.get('title'),
                     description=request.form.get('description'),
                     strokes=json.loads(request.form.get('strokes')))
+    if request.form.get('replay_allowed', False):
+        canvas.replay_allowed = True
+    else:
+        canvas.replay_allowed = False
     session.add(canvas)
     session.commit()
     blob = base64.b64decode(request.form['canvas'].split(',')[1])
@@ -62,6 +66,10 @@ def edit(screen_name, canvas_id):
     else:
         canvas.title = request.form.get('title')
         canvas.description = request.form.get('description')
+        if request.form.get('replay_allowed', False):
+            canvas.replay_allowed = True
+        else:
+            canvas.replay_allowed = False
         session.add(canvas)
         session.commit()
     return redirect(url_for('canvas.view', screen_name=screen_name,
@@ -110,6 +118,8 @@ def strokes(screen_name, canvas_id):
     canvas = get_canvas(screen_name, canvas_id)
     if not canvas:
         abort(404)
+    if not canvas.replay_allowed:
+        abort(403)
     return jsonify(strokes=canvas.strokes)
 
 

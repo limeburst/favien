@@ -54,6 +54,10 @@
                         <textarea id="description" placeholder="{% trans -%} Description {%- endtrans %}"></textarea>
                     </li>
                     <li>
+                        <label for="replay_allowed">{% trans -%} Allow Replay {%- endtrans %}</label>
+                        <input name="replay_allowed" type="checkbox" id="replay_allowed" value="replay_allowed" checked>
+                    </li>
+                    <li>
                         <input id="submit" type="submit" value="{% trans -%} Save {%- endtrans %}" >
                     </li>
                 </ul>

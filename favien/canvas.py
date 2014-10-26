@@ -8,7 +8,7 @@ from flask import current_app
 from sqlalchemy.orm import deferred, relationship
 from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.sql.functions import now
-from sqlalchemy.types import DateTime, Integer, UnicodeText
+from sqlalchemy.types import Boolean, DateTime, Integer, UnicodeText
 from sqlalchemy.dialects.postgres import JSON
 
 from .orm import Base
@@ -35,6 +35,9 @@ class Canvas(Base):
 
     #: (:class:`sqlalchemy.dialects.postgres.JSON`) Canvas brush strokes.
     strokes = deferred(Column(JSON))
+
+    #: (:class:`sqlalchemy.types.Boolean`) Is replaying allowed?
+    replay_allowed = Column(Boolean)
 
     #: (:class:`sqlalchemy.types.DateTime`) The created time.
     created_at = deferred(

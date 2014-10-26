@@ -213,6 +213,7 @@ $(document).ready(function() {
             data: {
                 title: $('#title').val(),
                 description: $('#description').val(),
+                replay_allowed: $('#replay_allowed:checked').val(),
                 canvas: canvas[0].toDataURL(),
                 strokes: JSON.stringify(strokes)
             },
