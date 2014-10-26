@@ -166,6 +166,11 @@ $(document).ready(function() {
     if (canvas.length) {
         var wacom = document.getElementById('wacom').penAPI;
     }
+    var spacingSlider = $('#spacing');
+    var spacingLabel = $('label[for=spacing-label]');
+    spacingSlider.on('input', function() {
+        spacingLabel.text(spacingSlider.val());
+    });
     $('#replay').on('click', replayCanvas);
     canvas.on('mousedown', function(e) {
         var pressure = getPressure(wacom);
