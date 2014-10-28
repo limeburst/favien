@@ -44,6 +44,10 @@ var Brush = function(radius, globalAlpha, spacing, fillStyle, globalCompositeOpe
         this.draw(canvas, trace);
     };
     this.move = function(canvas, trace) {
+        if (this.spacing === null) {
+            this.draw(canvas, trace);
+            return
+        }
         var dx = trace.x - prevX;
         var dy = trace.y - prevY;
         var dp = trace.p - prevP;
@@ -88,6 +92,14 @@ var stroke;
 var isLocked;
 var isDrawing;
 var replayStrokes;
+
+function getSpacing() {
+    if ($('#spacing').is(':checked')) {
+        return $('#spacing-slider').val()
+    } else {
+        return null
+    }
+}
 
 function getPressure(wacom) {
     var defaultPressure = 0.5;
@@ -166,8 +178,8 @@ $(document).ready(function() {
     if (canvas.length) {
         var wacom = document.getElementById('wacom').penAPI;
     }
-    var spacingSlider = $('#spacing');
-    var spacingLabel = $('label[for=spacing-label]');
+    var spacingSlider = $('#spacing-slider');
+    var spacingLabel = $('label[for=spacing-slider]');
     spacingSlider.on('input', function() {
         spacingLabel.text(spacingSlider.val());
     });
@@ -184,7 +196,7 @@ $(document).ready(function() {
             brush = new Brush(
                 $('#radius').val(),
                 $('#flow').val(),
-                $('#spacing').val(),
+                getSpacing(),
                 $('#color').val(),
                 getGlobalCompositeOperation(wacom)
             );
