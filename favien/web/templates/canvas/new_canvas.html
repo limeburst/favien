@@ -37,8 +37,9 @@
                 <label for="size-slider">10px</label>
             </li>
             <li>
-                <label for="flow">{% trans -%} Flow {%- endtrans %}</label>
-                <input type="range" id="flow" value="1" max="1" step="0.01">
+                <label>{% trans -%} Flow {%- endtrans %}</label>
+                <input type="range" id="flow-slider" value="100" max="100" min="1" step="1">
+                <label for="flow-slider">100%</label>
             </li>
             <li>
                 <input type="checkbox" id="spacing" checked>

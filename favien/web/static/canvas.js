@@ -12,7 +12,7 @@ var Trace = function(x, y, p, t) {
     this.t = t;
 };
 
-var Brush = function(size, globalAlpha, spacing, fillStyle, globalCompositeOperation) {
+var Brush = function(size, flow, spacing, fillStyle, globalCompositeOperation) {
     var distance;
     var prevX;
     var prevY;
@@ -22,13 +22,13 @@ var Brush = function(size, globalAlpha, spacing, fillStyle, globalCompositeOpera
     var direction;
     this.name = 'arc';
     this.size = size;
-    this.globalAlpha = globalAlpha;
+    this.flow = flow;
     this.spacing = spacing;
     this.fillStyle = fillStyle;
     this.globalCompositeOperation = globalCompositeOperation;
     this.draw = function(canvas, trace) {
         var ctx = canvas[0].getContext('2d');
-        ctx.globalAlpha = this.globalAlpha;
+        ctx.globalAlpha = this.flow / 100;
         ctx.fillStyle = this.fillStyle;
         ctx.globalCompositeOperation = this.globalCompositeOperation;
         ctx.beginPath();
@@ -164,7 +164,7 @@ function replayStroke() {
         var stroke = replayStrokes.shift();
         var brush = new Brush(
             stroke.brush.size,
-            stroke.brush.globalAlpha,
+            stroke.brush.flow,
             stroke.brush.spacing,
             stroke.brush.fillStyle,
             stroke.brush.globalCompositeOperation
@@ -188,6 +188,11 @@ $(document).ready(function() {
     sizeSlider.on('input', function() {
         sizeLabel.text(sizeSlider.val() + 'px');
     });
+    var flowSlider = $('#flow-slider');
+    var flowLabel = $('label[for=flow-slider]');
+    flowSlider.on('input', function() {
+        flowLabel.text(flowSlider.val() + '%');
+    });
     var spacingSlider = $('#spacing-slider');
     var spacingLabel = $('label[for=spacing-slider]');
     spacingSlider.on('input', function() {
@@ -208,7 +213,7 @@ $(document).ready(function() {
             isDrawing = true;
             brush = new Brush(
                 $('#size-slider').val(),
-                $('#flow').val(),
+                $('#flow-slider').val(),
                 getSpacing(),
                 $('#color').val(),
                 getGlobalCompositeOperation(wacom)
