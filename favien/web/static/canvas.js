@@ -12,7 +12,7 @@ var Trace = function(x, y, p, t) {
     this.t = t;
 };
 
-var Brush = function(radius, globalAlpha, spacing, fillStyle, globalCompositeOperation) {
+var Brush = function(size, globalAlpha, spacing, fillStyle, globalCompositeOperation) {
     var distance;
     var prevX;
     var prevY;
@@ -21,7 +21,7 @@ var Brush = function(radius, globalAlpha, spacing, fillStyle, globalCompositeOpe
     var lastY;
     var direction;
     this.name = 'arc';
-    this.radius = radius;
+    this.size = size;
     this.globalAlpha = globalAlpha;
     this.spacing = spacing;
     this.fillStyle = fillStyle;
@@ -32,7 +32,7 @@ var Brush = function(radius, globalAlpha, spacing, fillStyle, globalCompositeOpe
         ctx.fillStyle = this.fillStyle;
         ctx.globalCompositeOperation = this.globalCompositeOperation;
         ctx.beginPath();
-        ctx.arc(trace.x, trace.y, trace.p * this.radius, 0, Math.PI * 2);
+        ctx.arc(trace.x, trace.y, trace.p * this.size, 0, Math.PI * 2);
         ctx.fill();
         ctx.closePath();
     };
@@ -59,7 +59,7 @@ var Brush = function(radius, globalAlpha, spacing, fillStyle, globalCompositeOpe
         var ld = Math.sqrt(ldx * ldx + ldy * ldy);
         direction = Math.atan2(ldy, ldx);
         var midScale = (prevP + trace.p) / 2;
-        var drawSpacing = this.radius * this.spacing * midScale;
+        var drawSpacing = this.size * this.spacing * midScale;
         if (drawSpacing === 0) {
             return
         }
@@ -158,7 +158,7 @@ function replayStroke() {
         var playerCanvas = $('#replay_canvas');
         var stroke = replayStrokes.shift();
         var brush = new Brush(
-            stroke.brush.radius,
+            stroke.brush.size,
             stroke.brush.globalAlpha,
             stroke.brush.spacing,
             stroke.brush.fillStyle,
@@ -194,7 +194,7 @@ $(document).ready(function() {
             }
             isDrawing = true;
             brush = new Brush(
-                $('#radius').val(),
+                $('#size').val(),
                 $('#flow').val(),
                 getSpacing(),
                 $('#color').val(),

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Favien dev\n"
 "Report-Msgid-Bugs-To: me@limeburst.net\n"
-"POT-Creation-Date: 2014-10-26 19:09+0900\n"
+"POT-Creation-Date: 2014-10-29 22:31+0900\n"
 "PO-Revision-Date: 2014-10-03 15:35+0900\n"
 "Last-Translator: Jihyeok Seo <me@limeburst.net>\n"
 "Language-Team: en <me@limeburst.net>\n"
@@ -63,22 +63,22 @@ msgid "Delete"
 msgstr "Delete"
 
 #: favien/web/templates/canvas/edit_canvas.html:33
-#: favien/web/templates/canvas/new_canvas.html:51
+#: favien/web/templates/canvas/new_canvas.html:53
 msgid "Title"
 msgstr "Title"
 
 #: favien/web/templates/canvas/edit_canvas.html:36
-#: favien/web/templates/canvas/new_canvas.html:54
+#: favien/web/templates/canvas/new_canvas.html:56
 msgid "Description"
 msgstr "Description"
 
 #: favien/web/templates/canvas/edit_canvas.html:39
-#: favien/web/templates/canvas/new_canvas.html:57
+#: favien/web/templates/canvas/new_canvas.html:59
 msgid "Allow Replay"
 msgstr "Allow Replay"
 
 #: favien/web/templates/canvas/edit_canvas.html:43
-#: favien/web/templates/canvas/new_canvas.html:61
+#: favien/web/templates/canvas/new_canvas.html:63
 msgid "Save"
 msgstr "Save"
 
@@ -103,14 +103,14 @@ msgid "Color"
 msgstr "Color"
 
 #: favien/web/templates/canvas/new_canvas.html:35
-msgid "Radius"
-msgstr "Radius"
+msgid "Size"
+msgstr "Size"
 
 #: favien/web/templates/canvas/new_canvas.html:39
 msgid "Flow"
 msgstr "Flow"
 
-#: favien/web/templates/canvas/new_canvas.html:43
+#: favien/web/templates/canvas/new_canvas.html:44
 msgid "Spacing"
 msgstr "Spacing"
 
@@ -127,4 +127,7 @@ msgstr "Replay"
 
 #~ msgid "Size"
 #~ msgstr "Size"
+
+#~ msgid "Radius"
+#~ msgstr "Radius"
 

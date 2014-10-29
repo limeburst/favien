@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Favien dev\n"
 "Report-Msgid-Bugs-To: me@limeburst.net\n"
-"POT-Creation-Date: 2014-10-26 19:09+0900\n"
+"POT-Creation-Date: 2014-10-29 22:31+0900\n"
 "PO-Revision-Date: 2014-10-03 01:44+0900\n"
 "Last-Translator: Jihyeok Seo <me@limeburst.net>\n"
 "Language-Team: ko <me@limeburst.net>\n"
@@ -62,22 +62,22 @@ msgid "Delete"
 msgstr "삭제"
 
 #: favien/web/templates/canvas/edit_canvas.html:33
-#: favien/web/templates/canvas/new_canvas.html:51
+#: favien/web/templates/canvas/new_canvas.html:53
 msgid "Title"
 msgstr "제목"
 
 #: favien/web/templates/canvas/edit_canvas.html:36
-#: favien/web/templates/canvas/new_canvas.html:54
+#: favien/web/templates/canvas/new_canvas.html:56
 msgid "Description"
 msgstr "설명"
 
 #: favien/web/templates/canvas/edit_canvas.html:39
-#: favien/web/templates/canvas/new_canvas.html:57
+#: favien/web/templates/canvas/new_canvas.html:59
 msgid "Allow Replay"
 msgstr "리플레이 허용"
 
 #: favien/web/templates/canvas/edit_canvas.html:43
-#: favien/web/templates/canvas/new_canvas.html:61
+#: favien/web/templates/canvas/new_canvas.html:63
 msgid "Save"
 msgstr "저장"
 
@@ -102,14 +102,14 @@ msgid "Color"
 msgstr "색깔"
 
 #: favien/web/templates/canvas/new_canvas.html:35
-msgid "Radius"
-msgstr "반경"
+msgid "Size"
+msgstr "크기"
 
 #: favien/web/templates/canvas/new_canvas.html:39
 msgid "Flow"
 msgstr "흐름"
 
-#: favien/web/templates/canvas/new_canvas.html:43
+#: favien/web/templates/canvas/new_canvas.html:44
 msgid "Spacing"
 msgstr "간격"
 
@@ -126,4 +126,7 @@ msgstr "리플레이"
 
 #~ msgid "Size"
 #~ msgstr "크기"
+
+#~ msgid "Radius"
+#~ msgstr "반경"
 
