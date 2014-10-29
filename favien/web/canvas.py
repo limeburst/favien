@@ -63,15 +63,14 @@ def edit(screen_name, canvas_id):
         abort(404)
     if canvas.artist != current_user:
         abort(400)
+    canvas.title = request.form.get('title')
+    canvas.description = request.form.get('description')
+    if request.form.get('replay_allowed', False):
+        canvas.replay_allowed = True
     else:
-        canvas.title = request.form.get('title')
-        canvas.description = request.form.get('description')
-        if request.form.get('replay_allowed', False):
-            canvas.replay_allowed = True
-        else:
-            canvas.replay_allowed = False
-        session.add(canvas)
-        session.commit()
+        canvas.replay_allowed = False
+    session.add(canvas)
+    session.commit()
     return redirect(url_for('canvas.view', screen_name=screen_name,
                             canvas_id=canvas_id))
 
@@ -84,8 +83,7 @@ def edit_form(screen_name, canvas_id):
         abort(404)
     if canvas.artist != current_user:
         abort(400)
-    else:
-        return render_template('canvas/edit_canvas.html', canvas=canvas)
+    return render_template('canvas/edit_canvas.html', canvas=canvas)
 
 
 @bp.route('/<screen_name>/<int:canvas_id>/delete/')
@@ -96,9 +94,8 @@ def delete(screen_name, canvas_id):
         abort(404)
     if canvas.artist != current_user:
         abort(400)
-    else:
-        session.delete(canvas)
-        session.commit()
+    session.delete(canvas)
+    session.commit()
     return redirect(url_for('user.profile',
                             screen_name=canvas.artist.screen_name))
 
