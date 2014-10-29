@@ -41,6 +41,8 @@ def add(screen_name):
     canvas = Canvas(artist_id=current_user.id,
                     title=request.form.get('title'),
                     description=request.form.get('description'),
+                    width=request.form.get('width'),
+                    height=request.form.get('height'),
                     strokes=json.loads(request.form.get('strokes')))
     if request.form.get('replay_allowed', False):
         canvas.replay_allowed = True

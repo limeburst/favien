@@ -245,6 +245,8 @@ $(document).ready(function() {
             data: {
                 title: $('#title').val(),
                 description: $('#description').val(),
+                width: canvas[0].width,
+                height: canvas[0].height,
                 replay_allowed: $('#replay_allowed:checked').val(),
                 canvas: canvas[0].toDataURL(),
                 strokes: JSON.stringify(strokes)
