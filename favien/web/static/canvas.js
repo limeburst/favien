@@ -184,21 +184,18 @@ $(document).ready(function() {
         var wacom = document.getElementById('wacom').penAPI;
     }
     var sizeSlider = $('#size-slider');
-    var sizeLabel = $('label[for=size-slider]');
-    sizeSlider.on('input', function() {
-        sizeLabel.text(sizeSlider.val() + 'px');
-    });
     var flowSlider = $('#flow-slider');
-    var flowLabel = $('label[for=flow-slider]');
-    flowSlider.on('input', function() {
-        flowLabel.text(flowSlider.val() + '%');
-    });
     var spacingSlider = $('#spacing-slider');
-    var spacingLabel = $('label[for=spacing-slider]');
+    sizeSlider.on('input', function() {
+        $('label[for=size-slider]').text(sizeSlider.val() + 'px');
+    });
+    flowSlider.on('input', function() {
+        $('label[for=flow-slider]').text(flowSlider.val() + '%');
+    });
     spacingSlider.on('input', function() {
         var spacing = getSpacing();
         if (spacing !== null) {
-            spacingLabel.text(getSpacing() + '%');
+            $('label[for=spacing-slider]').text(spacing + '%');
         }
     });
     $('#replay').on('click', replayCanvas);
