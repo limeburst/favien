@@ -72,7 +72,7 @@ var Brush = function(size, globalAlpha, spacing, fillStyle, globalCompositeOpera
             lastX = trace.x;
             lastY = trace.y;
             distance -= drawSpacing;
-            this.draw(canvas, new Trace(lastX, lastY, trace.p, new Date().getTime()));
+            this.draw(canvas, new Trace(lastX, lastY, trace.p, trace.t));
         } else {
             while (distance >= drawSpacing) {
                 var tx = Math.cos(direction);
@@ -81,7 +81,7 @@ var Brush = function(size, globalAlpha, spacing, fillStyle, globalCompositeOpera
                 lastY += ty * drawSpacing;
                 prevP += scaleSpacing;
                 distance -= drawSpacing;
-                this.draw(canvas, new Trace(lastX, lastY, prevP, new Date().getTime()));
+                this.draw(canvas, new Trace(lastX, lastY, prevP, trace.t));
             }
         }
     };
