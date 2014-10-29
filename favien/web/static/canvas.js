@@ -94,8 +94,13 @@ var isDrawing;
 var replayStrokes;
 
 function getSpacing() {
+    var sliderValue = $('#spacing-slider').val();
     if ($('#spacing').is(':checked')) {
-        return $('#spacing-slider').val()
+        if (sliderValue <= 100) {
+            return sliderValue
+        } else if (sliderValue > 100) {
+            return 100 + (sliderValue - 100) * 9
+        }
     } else {
         return null
     }
@@ -181,7 +186,10 @@ $(document).ready(function() {
     var spacingSlider = $('#spacing-slider');
     var spacingLabel = $('label[for=spacing-slider]');
     spacingSlider.on('input', function() {
-        spacingLabel.text(getSpacing().concat('%'));
+        var spacing = getSpacing();
+        if (spacing !== null) {
+            spacingLabel.text(getSpacing() + '%');
+        }
     });
     $('#replay').on('click', replayCanvas);
     canvas.on('mousedown', function(e) {
