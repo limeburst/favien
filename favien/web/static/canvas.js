@@ -59,7 +59,7 @@ var Brush = function(size, globalAlpha, spacing, fillStyle, globalCompositeOpera
         var ld = Math.sqrt(ldx * ldx + ldy * ldy);
         direction = Math.atan2(ldy, ldx);
         var midScale = (prevP + trace.p) / 2;
-        var drawSpacing = this.size * this.spacing * midScale;
+        var drawSpacing = this.size * this.spacing / 100 * midScale;
         if (drawSpacing === 0) {
             return
         }
@@ -181,7 +181,7 @@ $(document).ready(function() {
     var spacingSlider = $('#spacing-slider');
     var spacingLabel = $('label[for=spacing-slider]');
     spacingSlider.on('input', function() {
-        spacingLabel.text(spacingSlider.val());
+        spacingLabel.text(getSpacing().concat('%'));
     });
     $('#replay').on('click', replayCanvas);
     canvas.on('mousedown', function(e) {

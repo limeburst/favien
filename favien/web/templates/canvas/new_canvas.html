@@ -42,8 +42,8 @@
             <li>
                 <input type="checkbox" id="spacing" checked>
                 <label for="spacing">{% trans -%} Spacing {%- endtrans %}</label>
-                <input type="range" id="spacing-slider" value="0.5" min="0.1" max="5" step="0.1">
-                <label for="spacing-slider">0.5</label>
+                <input type="range" id="spacing-slider" value="10" min="1" max="500" step="1">
+                <label for="spacing-slider">10%</label>
             </li>
         </ul>
         {% if current_user %}
