@@ -183,6 +183,11 @@ $(document).ready(function() {
     if (canvas.length) {
         var wacom = document.getElementById('wacom').penAPI;
     }
+    var sizeSlider = $('#size-slider');
+    var sizeLabel = $('label[for=size-slider]');
+    sizeSlider.on('input', function() {
+        sizeLabel.text(sizeSlider.val() + 'px');
+    });
     var spacingSlider = $('#spacing-slider');
     var spacingLabel = $('label[for=spacing-slider]');
     spacingSlider.on('input', function() {
@@ -202,7 +207,7 @@ $(document).ready(function() {
             }
             isDrawing = true;
             brush = new Brush(
-                $('#size').val(),
+                $('#size-slider').val(),
                 $('#flow').val(),
                 getSpacing(),
                 $('#color').val(),
