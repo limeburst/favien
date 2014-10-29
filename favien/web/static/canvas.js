@@ -32,7 +32,7 @@ var Brush = function(size, globalAlpha, spacing, fillStyle, globalCompositeOpera
         ctx.fillStyle = this.fillStyle;
         ctx.globalCompositeOperation = this.globalCompositeOperation;
         ctx.beginPath();
-        ctx.arc(trace.x, trace.y, trace.p * this.size, 0, Math.PI * 2);
+        ctx.arc(trace.x, trace.y, trace.p * this.size / 2, 0, Math.PI * 2);
         ctx.fill();
         ctx.closePath();
     };
