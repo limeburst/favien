@@ -87,15 +87,9 @@ var Brush = function(size, flow, spacing, fillStyle, globalCompositeOperation) {
     };
 };
 
-var brush;
-var stroke;
-var isLocked;
-var isDrawing;
-var replayStrokes;
-
 function getSpacing() {
-    var sliderValue = $('#spacing-slider').val();
-    if ($('#spacing').is(':checked')) {
+    var sliderValue = spacingSlider.val();
+    if (spacing.is(':checked')) {
         if (sliderValue <= 100) {
             return sliderValue
         } else if (sliderValue > 100) {
@@ -106,9 +100,9 @@ function getSpacing() {
     }
 }
 
-function getPressure(wacom) {
+function getPressure() {
     var defaultPressure = 0.5;
-    if ($('#tablet').is(':checked')) {
+    if (tablet.is(':checked')) {
         if (wacom === undefined) {
             return defaultPressure
         } else {
@@ -119,16 +113,16 @@ function getPressure(wacom) {
     }
 }
 
-function getGlobalCompositeOperation(wacom) {
+function getGlobalCompositeOperation() {
     var destinationOut = 'destination-out';
     var sourceOver = 'source-over';
     var defaultOperation;
-    if ($('#eraser').is(':checked')) {
+    if (eraser.is(':checked')) {
         defaultOperation = destinationOut
     } else {
         defaultOperation = sourceOver
     }
-    if ($('#tablet').is(':checked')) {
+    if (tablet.is(':checked')) {
         if (wacom === undefined) {
             return defaultOperation
         } else {
@@ -143,25 +137,10 @@ function getGlobalCompositeOperation(wacom) {
     }
 }
 
-function replayCanvas() {
-    var canvas = $('#replay_canvas');
-    var width = canvas.width();
-    var height = canvas.height();
-    var playerCanvas = $('<canvas></canvas>')
-        .attr('id', 'replay_canvas')
-        .attr('width', width)
-        .attr('height', height);
-    canvas.replaceWith(playerCanvas);
-    $.get('strokes', function(data) {
-        replayStrokes = data.strokes;
-        setInterval(replayStroke, 10);
-    });
-}
-
 function replayStroke() {
-    if (replayStrokes.length) {
-        var playerCanvas = $('#replay_canvas');
-        var stroke = replayStrokes.shift();
+    if (strokes.length) {
+        var replayCanvas = $('#replay-canvas');
+        var stroke = strokes.shift();
         var brush = new Brush(
             stroke.brush.size,
             stroke.brush.flow,
@@ -169,103 +148,142 @@ function replayStroke() {
             stroke.brush.fillStyle,
             stroke.brush.globalCompositeOperation
         );
-        brush.down(playerCanvas, stroke.traces.shift());
+        brush.down(replayCanvas, stroke.traces.shift());
         while (stroke.traces.length) {
-            brush.move(playerCanvas, stroke.traces.shift());
+            brush.move(replayCanvas, stroke.traces.shift());
         }
     }
 }
 
-$(document).ready(function() {
-    var strokes = [];
-    var save = $('#save');
-    var canvas = $('#canvas');
-    if (canvas.length) {
-        var wacom = document.getElementById('wacom').penAPI;
+var brush;
+var stroke;
+var isLocked;
+var isDrawing;
+var strokes = [];
+
+var canvas = $('#canvas');
+var color = $('#color');
+var description = $('#description');
+var eraser = $('#eraser');
+var height = $('#height');
+var replayButton = $('#replay');
+var save = $('#save');
+var spacing = $('#spacing');
+var submit = $('#submit');
+var tablet = $('#tablet');
+var title = $('#title');
+var width = $('#width');
+if (canvas.length) {
+    var wacom = document.getElementById('wacom').penAPI;
+}
+
+var flowLabel = $('label[for=flow-slider]');
+var flowSlider = $('#flow-slider');
+var sizeLabel = $('label[for=size-slider]');
+var sizeSlider = $('#size-slider');
+var spacingLabel = $('label[for=spacing-slider]');
+var spacingSlider = $('#spacing-slider');
+width.on('change', function() {
+    canvas[0].width = width.val();
+});
+height.on('change', function() {
+    canvas[0].height = height.val();
+});
+sizeSlider.on('input', function() {
+    sizeLabel.text(sizeSlider.val() + 'px');
+});
+flowSlider.on('input', function() {
+    flowLabel.text(flowSlider.val() + '%');
+});
+spacingSlider.on('input', function() {
+    var spacing = getSpacing();
+    if (spacing !== null) {
+        spacingLabel.text(spacing + '%');
     }
-    var sizeSlider = $('#size-slider');
-    var flowSlider = $('#flow-slider');
-    var spacingSlider = $('#spacing-slider');
-    sizeSlider.on('input', function() {
-        $('label[for=size-slider]').text(sizeSlider.val() + 'px');
-    });
-    flowSlider.on('input', function() {
-        $('label[for=flow-slider]').text(flowSlider.val() + '%');
-    });
-    spacingSlider.on('input', function() {
-        var spacing = getSpacing();
-        if (spacing !== null) {
-            $('label[for=spacing-slider]').text(spacing + '%');
+});
+
+canvas.on('mousedown', function(e) {
+    var pressure = getPressure();
+    if (pressure !== 0) {
+        if (!isLocked) {
+            isLocked = true;
+            width.prop('disabled', true);
+            height.prop('disabled', true);
+        }
+        isDrawing = true;
+        brush = new Brush(
+            sizeSlider.val(),
+            flowSlider.val(),
+            getSpacing(),
+            color.val(),
+            getGlobalCompositeOperation()
+        );
+        stroke = new Stroke(brush);
+        var trace = new Trace(
+            e.offsetX,
+            e.offsetY,
+            pressure,
+            new Date().getTime()
+        );
+        stroke.traces.push(trace);
+        brush.down(canvas, trace);
+    }
+});
+canvas.on('mousemove', function(e) {
+    if (isDrawing) {
+        var trace = new Trace(
+            e.offsetX,
+            e.offsetY,
+            getPressure(),
+            new Date().getTime()
+        );
+        stroke.traces.push(trace);
+        brush.move(canvas, trace);
+    }
+});
+canvas.on('mouseup mouseleave', function() {
+    if (stroke) {
+        strokes.push(stroke);
+    }
+    isDrawing = false;
+    brush = undefined;
+    stroke = undefined;
+});
+
+save.submit(function(e) {
+    submit.prop('disabled', true);
+    $.ajax({
+        url: save[0].action,
+        type: save[0].method,
+        dataType: 'json',
+        data: {
+            title: title.val(),
+            description: description.val(),
+            replay_allowed: $('#replay_allowed:checked').val(),
+            width: canvas[0].width,
+            height: canvas[0].height,
+            canvas: canvas[0].toDataURL(),
+            strokes: JSON.stringify(strokes)
+        },
+        success:  function(data) {
+            window.location.replace(data.location);
+        },
+        error: function() {
+            submit.prop('disabled', false);
         }
     });
-    $('#replay').on('click', replayCanvas);
-    canvas.on('mousedown', function(e) {
-        var pressure = getPressure(wacom);
-        if (pressure !== 0) {
-            if (!isLocked) {
-                isLocked = true;
-                $('#width').prop('disabled', true);
-                $('#height').prop('disabled', true);
-            }
-            isDrawing = true;
-            brush = new Brush(
-                $('#size-slider').val(),
-                $('#flow-slider').val(),
-                getSpacing(),
-                $('#color').val(),
-                getGlobalCompositeOperation(wacom)
-            );
-            stroke = new Stroke(brush);
-            var trace = new Trace(e.offsetX, e.offsetY, pressure, new Date().getTime());
-            stroke.traces.push(trace);
-            brush.down(canvas, trace);
-        }
+    e.preventDefault();
+});
+
+replayButton.on('click', function() {
+    var replayCanvas = $('#replay-canvas');
+    var canvas = $('<canvas></canvas>')
+        .attr('id', 'replay-canvas')
+        .attr('width', replayCanvas.width())
+        .attr('height', replayCanvas.height());
+    replayCanvas.replaceWith(canvas);
+    $.get('strokes', function (data) {
+        strokes = data.strokes;
+        setInterval(replayStroke, 10);
     });
-    canvas.on('mousemove', function(e) {
-        if (isDrawing) {
-            var trace = new Trace(e.offsetX, e.offsetY, getPressure(wacom), new Date().getTime());
-            stroke.traces.push(trace);
-            brush.move(canvas, trace);
-        }
-    });
-    canvas.on('mouseup mouseleave', function() {
-        if (stroke) {
-            strokes.push(stroke);
-        }
-        isDrawing = false;
-        brush = undefined;
-        stroke = undefined;
-    });
-    save.submit(function(e) {
-        $('#submit').prop('disabled', true);
-        $.ajax({
-            url: save[0].action,
-            type: save[0].method,
-            dataType: 'json',
-            data: {
-                title: $('#title').val(),
-                description: $('#description').val(),
-                width: canvas[0].width,
-                height: canvas[0].height,
-                replay_allowed: $('#replay_allowed:checked').val(),
-                canvas: canvas[0].toDataURL(),
-                strokes: JSON.stringify(strokes)
-            },
-            success: function(data) {
-                window.location.replace(data.location);
-            },
-            error: function() {
-                $('#submit').prop('disabled', false);
-            }
-        });
-        e.preventDefault();
-    });
-    var width = $('#width');
-    width.on('change', function() {
-        canvas[0].width = width.val();
-    });
-    var height = $('#height');
-    height.on('change', function() {
-        canvas[0].height = height.val();
-    })
 });
