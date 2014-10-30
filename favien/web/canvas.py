@@ -46,8 +46,6 @@ def add(screen_name):
                     strokes=json.loads(request.form.get('strokes')))
     if request.form.get('replay_allowed', False):
         canvas.replay_allowed = True
-    else:
-        canvas.replay_allowed = False
     session.add(canvas)
     session.commit()
     blob = base64.b64decode(request.form['canvas'].split(',')[1])
