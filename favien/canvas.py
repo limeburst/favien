@@ -37,7 +37,7 @@ class Canvas(Base):
     strokes = deferred(Column(JSON))
 
     #: (:class:`sqlalchemy.types.Boolean`) Is replaying allowed?
-    replay_allowed = Column(Boolean)
+    replay_allowed = Column(Boolean, nullable=False, default=False)
 
     #: (:class:`sqlalchemy.types.DateTime`) The created time.
     created_at = deferred(
