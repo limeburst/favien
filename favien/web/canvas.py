@@ -67,8 +67,6 @@ def edit(screen_name, canvas_id):
     canvas.description = request.form.get('description')
     if request.form.get('replay_allowed', False):
         canvas.replay_allowed = True
-    else:
-        canvas.replay_allowed = False
     session.add(canvas)
     session.commit()
     return redirect(url_for('canvas.view', screen_name=screen_name,
