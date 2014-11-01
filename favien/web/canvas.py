@@ -156,7 +156,7 @@ def append_strokes(screen_name, canvas_id):
             'strokes': strokes
         }))
     except ConnectionError:
-        abort(503)
+        pass  # FIXME
     canvas.strokes = canvas.strokes + strokes
     session.add(canvas)
     session.commit()
