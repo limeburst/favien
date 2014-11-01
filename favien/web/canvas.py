@@ -2,14 +2,18 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 """
+from __future__ import absolute_import
+
 import base64
 
 from flask import (Blueprint, abort, json, jsonify, redirect, render_template,
                    request, url_for)
+from redis import ConnectionError
 
 from ..canvas import Canvas
 from ..user import User
 from .db import session
+from .redis import redis
 from .user import current_user
 
 
@@ -136,7 +140,7 @@ def strokes(screen_name, canvas_id):
 
 @bp.route('/<screen_name>/<int:canvas_id>/strokes/', methods=['POST'])
 def append_strokes(screen_name, canvas_id):
-    """Append strokes to canvas."""
+    """Append and publish strokes."""
     canvas = get_canvas(screen_name, canvas_id)
     if not canvas:
         abort(404)
@@ -144,7 +148,16 @@ def append_strokes(screen_name, canvas_id):
         abort(400)
     if not canvas.broadcast:
         abort(403)
-    canvas.strokes = canvas.strokes + json.loads(request.form.get('strokes'))
+    strokes = json.loads(request.form.get('strokes'))
+    try:
+        redis.publish(canvas.id, json.dumps({
+            'event': 'strokes',
+            'user': current_user.screen_name,
+            'strokes': strokes
+        }))
+    except ConnectionError:
+        abort(503)
+    canvas.strokes = canvas.strokes + strokes
     session.add(canvas)
     session.commit()
     return jsonify()
