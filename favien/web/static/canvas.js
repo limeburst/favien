@@ -137,9 +137,8 @@ function getGlobalCompositeOperation() {
     }
 }
 
-function replayStroke() {
+function replayStroke(canvas) {
     if (strokes.length) {
-        var replayCanvas = $('#replay-canvas');
         var stroke = strokes.shift();
         var brush = new Brush(
             stroke.brush.size,
@@ -148,9 +147,9 @@ function replayStroke() {
             stroke.brush.fillStyle,
             stroke.brush.globalCompositeOperation
         );
-        brush.down(replayCanvas, stroke.traces.shift());
+        brush.down(canvas, stroke.traces.shift());
         while (stroke.traces.length) {
-            brush.move(replayCanvas, stroke.traces.shift());
+            brush.move(canvas, stroke.traces.shift());
         }
     }
 }
@@ -284,6 +283,8 @@ replayButton.on('click', function() {
     replayCanvas.replaceWith(canvas);
     $.get('strokes/', function (data) {
         strokes = data.strokes;
-        setInterval(replayStroke, 10);
+        setInterval(function() {
+            replayStroke($('#replay-canvas'))
+        }, 10);
     });
 });
