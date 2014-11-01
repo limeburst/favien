@@ -282,7 +282,7 @@ replayButton.on('click', function() {
         .attr('width', replayCanvas.width())
         .attr('height', replayCanvas.height());
     replayCanvas.replaceWith(canvas);
-    $.get('strokes', function (data) {
+    $.get('strokes/', function (data) {
         strokes = data.strokes;
         setInterval(replayStroke, 10);
     });
