@@ -42,6 +42,9 @@ class Canvas(Base):
     #: (:class:`sqlalchemy.types.Integer`) Canvas height in pixels.
     height = Column(Integer, nullable=False)
 
+    #: (:class:`sqlalchemy.types.Boolean`) Is this canvas broadcasting?
+    broadcast = Column(Boolean, nullable=False, default=False)
+
     #: (:class:`sqlalchemy.types.Boolean`) Is replaying allowed?
     replay_allowed = Column(Boolean, nullable=False, default=False)
 

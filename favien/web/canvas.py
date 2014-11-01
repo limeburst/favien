@@ -44,6 +44,11 @@ def add(screen_name):
                     width=request.form.get('width'),
                     height=request.form.get('height'),
                     strokes=json.loads(request.form.get('strokes')))
+    broadcast = request.form.get('broadcast', False)
+    if broadcast == 'true':
+        canvas.broadcast = True
+    else:
+        canvas.broadcast = False
     if request.form.get('replay_allowed', False):
         canvas.replay_allowed = True
     session.add(canvas)
@@ -55,7 +60,7 @@ def add(screen_name):
                                     canvas_id=canvas.id))
 
 
-@bp.route('/<screen_name>/<int:canvas_id>/', methods=['POST'])
+@bp.route('/<screen_name>/<int:canvas_id>/', methods=['POST', 'PUT'])
 def edit(screen_name, canvas_id):
     """Edits a canvas."""
     canvas = get_canvas(screen_name, canvas_id)
@@ -65,12 +70,23 @@ def edit(screen_name, canvas_id):
         abort(400)
     canvas.title = request.form.get('title')
     canvas.description = request.form.get('description')
+    broadcast = request.form.get('broadcast', False)
+    if broadcast == 'true':
+        canvas.broadcast = True
+    else:
+        canvas.broadcast = False
     if request.form.get('replay_allowed', False):
         canvas.replay_allowed = True
+    canvas_data = request.form.get('canvas', False)
+    if canvas_data:
+        canvas.from_blob(base64.b64decode(canvas_data.split(',')[1]))
     session.add(canvas)
     session.commit()
-    return redirect(url_for('canvas.view', screen_name=screen_name,
-                            canvas_id=canvas_id))
+    loc = url_for('canvas.view', screen_name=screen_name, canvas_id=canvas_id)
+    if request.method == 'PUT':
+        return jsonify(location=loc)
+    elif request.method == 'POST':
+        return redirect(loc)
 
 
 @bp.route('/<screen_name>/<int:canvas_id>/edit/')
@@ -116,6 +132,22 @@ def strokes(screen_name, canvas_id):
     if not canvas.replay_allowed:
         abort(403)
     return jsonify(strokes=canvas.strokes)
+
+
+@bp.route('/<screen_name>/<int:canvas_id>/strokes/', methods=['POST'])
+def append_strokes(screen_name, canvas_id):
+    """Append strokes to canvas."""
+    canvas = get_canvas(screen_name, canvas_id)
+    if not canvas:
+        abort(404)
+    if canvas.artist != current_user:
+        abort(400)
+    if not canvas.broadcast:
+        abort(403)
+    canvas.strokes = canvas.strokes + json.loads(request.form.get('strokes'))
+    session.add(canvas)
+    session.commit()
+    return jsonify()
 
 
 @bp.route('/new/')

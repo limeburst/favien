@@ -9,35 +9,40 @@
 {% endblock %}
 
 {% block body %}
-    <h2>
-        <a href="{{ url_for('canvas.view', screen_name=canvas.artist.screen_name, canvas_id=canvas.id) }}">
-            {% if canvas.title %}
-                {{ canvas.title }}
-            {% else %}
-                {% trans -%} Untitled {%- endtrans %}
-            {% endif %}
-        </a>
-    </h2>
-    <ul>
-        <li>
-            <a rel="author" href="{{ url_for('user.profile', screen_name=canvas.artist.screen_name) }}">{{ canvas.artist.screen_name }}</a>
-        </li>
-        {% if canvas.artist == current_user %}
+    {% if canvas.broadcast and current_user == canvas.artist %}
+        <canvas id="canvas" width="{{ canvas.width }}" height="{{ canvas.height }}" class="broadcast"></canvas>
+        <aside>
+            {{ canvas_editor(canvas) }}
+        </aside>
+    {% else %}
+        <h2>
+            <a href="{{ url_for('canvas.view', screen_name=canvas.artist.screen_name, canvas_id=canvas.id) }}">
+                {% if canvas.title %}
+                    {{ canvas.title }}
+                {% else %}
+                    {% trans -%} Untitled {%- endtrans %}
+                {% endif %}
+            </a>
+        </h2>
+        <ul>
             <li>
-                <a href="{{ url_for('canvas.edit_form', screen_name=canvas.artist.screen_name, canvas_id=canvas.id) }}">{% trans -%} Edit {%- endtrans %}</a>
+                <a rel="author" href="{{ url_for('user.profile', screen_name=canvas.artist.screen_name) }}">{{ canvas.artist.screen_name }}</a>
             </li>
-        {% endif %}
-    </ul>
-    <img id="replay-canvas" src="{{ canvas.get_url() }}">
-    <aside>
+            {% if canvas.artist == current_user %}
+                <li>
+                    <a href="{{ url_for('canvas.edit_form', screen_name=canvas.artist.screen_name, canvas_id=canvas.id) }}">{% trans -%} Edit {%- endtrans %}</a>
+                </li>
+            {% endif %}
+        </ul>
+        <img id="replay-canvas" src="{{ canvas.get_url() }}">
         {% if canvas.replay_allowed %}
             <input id="replay" type="button" value="{% trans -%} Replay {%- endtrans %}">
         {% endif %}
-    </aside>
-    {% if canvas.description %}
-        <p>
-            {{ canvas.description }}
-        </p>
+        {% if canvas.description %}
+            <p>
+                {{ canvas.description }}
+            </p>
+        {% endif %}
     {% endif %}
     {{ super() }}
 {% endblock %}

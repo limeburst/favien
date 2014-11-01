@@ -154,12 +154,27 @@ function replayStroke(canvas) {
     }
 }
 
+function getCanvasData() {
+    return {
+        title: title.val(),
+        description: description.val(),
+        replay_allowed: $('#replay_allowed:checked').val(),
+        width: canvas[0].width,
+        height: canvas[0].height,
+        canvas: canvas[0].toDataURL(),
+        strokes: JSON.stringify(strokes)
+    }
+}
+
 var brush;
 var stroke;
 var isLocked;
 var isDrawing;
 var strokes = [];
 
+var actions = $('#actions');
+var broadcast = $('#broadcast');
+var endBroadcast = $('#end-broadcast');
 var canvas = $('#canvas');
 var color = $('#color');
 var description = $('#description');
@@ -172,8 +187,17 @@ var submit = $('#submit');
 var tablet = $('#tablet');
 var title = $('#title');
 var width = $('#width');
+
 if (canvas.length) {
     var wacom = document.getElementById('wacom').penAPI;
+}
+if (endBroadcast.length) {
+    $.get('strokes/', function (data) {
+        strokes = data.strokes;
+        while (strokes.length) {
+            replayStroke(canvas)
+        }
+    });
 }
 
 var flowLabel = $('label[for=flow-slider]');
@@ -243,27 +267,54 @@ canvas.on('mousemove', function(e) {
 canvas.on('mouseup mouseleave', function() {
     if (stroke) {
         strokes.push(stroke);
+        if (endBroadcast.length) {
+            $.post('strokes/', {strokes: JSON.stringify(strokes)}, function () {
+                strokes = [];
+            });
+        }
     }
     isDrawing = false;
     brush = undefined;
     stroke = undefined;
 });
 
-save.submit(function(e) {
-    submit.prop('disabled', true);
+broadcast.on('click', function() {
+    var canvasData = getCanvasData();
+    canvasData.broadcast = true;
     $.ajax({
         url: save[0].action,
         type: save[0].method,
         dataType: 'json',
-        data: {
-            title: title.val(),
-            description: description.val(),
-            replay_allowed: $('#replay_allowed:checked').val(),
-            width: canvas[0].width,
-            height: canvas[0].height,
-            canvas: canvas[0].toDataURL(),
-            strokes: JSON.stringify(strokes)
-        },
+        data: canvasData,
+        success: function(data) {
+            window.location.replace(data.location);
+        }
+    });
+});
+
+endBroadcast.on('click', function() {
+    var canvasData = getCanvasData();
+    canvasData.broadcast = false;
+    $.ajax({
+        url: window.location,
+        type: 'PUT',
+        dataType: 'json',
+        data: canvasData,
+        success: function(data) {
+            window.location.replace(data.location);
+        }
+    })
+});
+
+save.submit(function(e) {
+    submit.prop('disabled', true);
+    var canvasData = getCanvasData();
+    canvasData.broadcast = false;
+    $.ajax({
+        url: save[0].action,
+        type: save[0].method,
+        dataType: 'json',
+        data: canvasData,
         success:  function(data) {
             window.location.replace(data.location);
         },

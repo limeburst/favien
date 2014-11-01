@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Favien dev\n"
 "Report-Msgid-Bugs-To: me@limeburst.net\n"
-"POT-Creation-Date: 2014-10-29 22:31+0900\n"
+"POT-Creation-Date: 2014-11-01 17:26+0900\n"
 "PO-Revision-Date: 2014-10-03 15:35+0900\n"
 "Last-Translator: Jihyeok Seo <me@limeburst.net>\n"
 "Language-Team: en <me@limeburst.net>\n"
@@ -54,71 +54,79 @@ msgstr "Canvases"
 #: favien/web/templates/canvas/edit_canvas.html:7
 #: favien/web/templates/canvas/edit_canvas.html:17
 #: favien/web/templates/canvas/view_canvas.html:7
-#: favien/web/templates/canvas/view_canvas.html:17
+#: favien/web/templates/canvas/view_canvas.html:23
 msgid "Untitled"
 msgstr "Untitled"
+
+#: favien/web/templates/canvas/canvas_base.html:12
+msgid "Width"
+msgstr "Width"
+
+#: favien/web/templates/canvas/canvas_base.html:16
+msgid "Height"
+msgstr "Height"
+
+#: favien/web/templates/canvas/canvas_base.html:22
+msgid "Tablet"
+msgstr "Tablet"
+
+#: favien/web/templates/canvas/canvas_base.html:26
+msgid "Eraser"
+msgstr "Eraser"
+
+#: favien/web/templates/canvas/canvas_base.html:30
+msgid "Color"
+msgstr "Color"
+
+#: favien/web/templates/canvas/canvas_base.html:34
+msgid "Size"
+msgstr "Size"
+
+#: favien/web/templates/canvas/canvas_base.html:39
+msgid "Flow"
+msgstr "Flow"
+
+#: favien/web/templates/canvas/canvas_base.html:45
+msgid "Spacing"
+msgstr "Spacing"
+
+#: favien/web/templates/canvas/canvas_base.html:54
+#: favien/web/templates/canvas/edit_canvas.html:33
+msgid "Title"
+msgstr "Title"
+
+#: favien/web/templates/canvas/canvas_base.html:57
+#: favien/web/templates/canvas/edit_canvas.html:36
+msgid "Description"
+msgstr "Description"
+
+#: favien/web/templates/canvas/canvas_base.html:60
+#: favien/web/templates/canvas/edit_canvas.html:39
+msgid "Allow Replay"
+msgstr "Allow Replay"
+
+#: favien/web/templates/canvas/canvas_base.html:65
+msgid "End Broadcast"
+msgstr "End Broadcast"
+
+#: favien/web/templates/canvas/canvas_base.html:67
+msgid "Broadcast"
+msgstr "Broadcast"
+
+#: favien/web/templates/canvas/canvas_base.html:68
+#: favien/web/templates/canvas/edit_canvas.html:43
+msgid "Save"
+msgstr "Save"
 
 #: favien/web/templates/canvas/edit_canvas.html:26
 msgid "Delete"
 msgstr "Delete"
 
-#: favien/web/templates/canvas/edit_canvas.html:33
-#: favien/web/templates/canvas/new_canvas.html:53
-msgid "Title"
-msgstr "Title"
-
-#: favien/web/templates/canvas/edit_canvas.html:36
-#: favien/web/templates/canvas/new_canvas.html:56
-msgid "Description"
-msgstr "Description"
-
-#: favien/web/templates/canvas/edit_canvas.html:39
-#: favien/web/templates/canvas/new_canvas.html:59
-msgid "Allow Replay"
-msgstr "Allow Replay"
-
-#: favien/web/templates/canvas/edit_canvas.html:43
-#: favien/web/templates/canvas/new_canvas.html:63
-msgid "Save"
-msgstr "Save"
-
-#: favien/web/templates/canvas/new_canvas.html:13
-msgid "Width"
-msgstr "Width"
-
-#: favien/web/templates/canvas/new_canvas.html:17
-msgid "Height"
-msgstr "Height"
-
-#: favien/web/templates/canvas/new_canvas.html:23
-msgid "Tablet"
-msgstr "Tablet"
-
-#: favien/web/templates/canvas/new_canvas.html:27
-msgid "Eraser"
-msgstr "Eraser"
-
-#: favien/web/templates/canvas/new_canvas.html:31
-msgid "Color"
-msgstr "Color"
-
-#: favien/web/templates/canvas/new_canvas.html:35
-msgid "Size"
-msgstr "Size"
-
-#: favien/web/templates/canvas/new_canvas.html:39
-msgid "Flow"
-msgstr "Flow"
-
-#: favien/web/templates/canvas/new_canvas.html:44
-msgid "Spacing"
-msgstr "Spacing"
-
-#: favien/web/templates/canvas/view_canvas.html:27
+#: favien/web/templates/canvas/view_canvas.html:33
 msgid "Edit"
 msgstr "Edit"
 
-#: favien/web/templates/canvas/view_canvas.html:34
+#: favien/web/templates/canvas/view_canvas.html:39
 msgid "Replay"
 msgstr "Replay"
 
