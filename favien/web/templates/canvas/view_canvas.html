@@ -9,11 +9,15 @@
 {% endblock %}
 
 {% block body %}
-    {% if canvas.broadcast and current_user == canvas.artist %}
-        <canvas id="canvas" width="{{ canvas.width }}" height="{{ canvas.height }}" class="broadcast"></canvas>
-        <aside>
-            {{ canvas_editor(canvas) }}
-        </aside>
+    {% if canvas.broadcast %}
+        {% if current_user == canvas.artist %}
+            <canvas id="canvas" width="{{ canvas.width }}" height="{{ canvas.height }}" class="broadcast"></canvas>
+            <aside>
+                {{ canvas_editor(canvas) }}
+            </aside>
+        {% else %}
+            <canvas id="broadcast-canvas" width="{{ canvas.width }}" height="{{ canvas.height }}" class="broadcast"></canvas>
+        {% endif %}
     {% else %}
         <h2>
             <a href="{{ url_for('canvas.view', screen_name=canvas.artist.screen_name, canvas_id=canvas.id) }}">

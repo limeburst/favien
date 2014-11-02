@@ -6,8 +6,8 @@ from __future__ import absolute_import
 
 import base64
 
-from flask import (Blueprint, abort, json, jsonify, redirect, render_template,
-                   request, url_for)
+from flask import (Blueprint, Response, abort, json, jsonify, redirect,
+                   render_template, request, url_for, stream_with_context)
 from redis import ConnectionError
 
 from ..canvas import Canvas
@@ -161,6 +161,28 @@ def append_strokes(screen_name, canvas_id):
     session.add(canvas)
     session.commit()
     return jsonify()
+
+
+@bp.route('/<screen_name>/<int:canvas_id>/stream/')
+def stroke_stream(screen_name, canvas_id):
+    """Server-sent events stream endpoint."""
+    canvas = get_canvas(screen_name, canvas_id)
+    if not canvas:
+        abort(404)
+    if not canvas.broadcast:
+        abort(405)
+    return Response(stream_with_context(generate(canvas)),
+                    direct_passthrough=True,
+                    mimetype='text/event-stream')
+
+
+def generate(canvas):
+    """Canvas stream generator."""
+    pubsub = redis.pubsub()
+    pubsub.subscribe(canvas.id)
+    for event in pubsub.listen():
+        if event['type'] == 'message':
+            yield 'data: %s\r\n\r\n' % event['data']
 
 
 @bp.route('/new/')

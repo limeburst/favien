@@ -176,6 +176,7 @@ var actions = $('#actions');
 var broadcast = $('#broadcast');
 var endBroadcast = $('#end-broadcast');
 var canvas = $('#canvas');
+var broadcastCanvas = $('#broadcast-canvas');
 var color = $('#color');
 var description = $('#description');
 var eraser = $('#eraser');
@@ -198,6 +199,22 @@ if (endBroadcast.length) {
             replayStroke(canvas)
         }
     });
+}
+if (broadcastCanvas.length) {
+    $.get('strokes/', function (data) {
+        strokes = data.strokes;
+        while (strokes.length) {
+            replayStroke(broadcastCanvas)
+        }
+    });
+    var evtSource = new EventSource('stream/');
+    evtSource.onmessage = function(e) {
+        var data = $.parseJSON(e.data);
+        strokes = data.strokes;
+        while (strokes.length) {
+            replayStroke(broadcastCanvas)
+        }
+    };
 }
 
 var flowLabel = $('label[for=flow-slider]');
