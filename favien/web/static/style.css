@@ -47,6 +47,6 @@ h2 + ol > li  {
     visibility: hidden;
 }
 
-.dangerous {
+.dangerous, .broadcast {
     color: red;
 }

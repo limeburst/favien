@@ -4,3 +4,71 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='canvas.js') }}"></script>
 {% endblock %}
+
+{% macro canvas_editor(canvas) %}
+    <object id="wacom" type="application/x-wacomtabletplugin"></object>
+    <ul>
+        <li>
+            <label for="width">{% trans -%} Width {%- endtrans %}</label>
+            <input type="number" id="width" value="600">
+        </li>
+        <li>
+            <label for="height">{% trans -%} Height {%- endtrans %}</label>
+            <input type="number" id="height" value="300">
+        </li>
+    </ul>
+    <ul>
+        <li>
+            <label for="tablet">{% trans -%} Tablet {%- endtrans %}</label>
+            <input type="checkbox" id="tablet" checked>
+        </li>
+        <li>
+            <label for="eraser">{% trans -%} Eraser {%- endtrans %}</label>
+            <input type="checkbox" id="eraser">
+        </li>
+        <li>
+            <label for="color">{% trans -%} Color {%- endtrans %}</label>
+            <input type="color" id="color" value="#000000">
+        </li>
+        <li>
+            <label>{% trans -%} Size {%- endtrans %}</label>
+            <input type="range" id="size-slider" value="10" min="1" step="1">
+            <label for="size-slider">10px</label>
+        </li>
+        <li>
+            <label>{% trans -%} Flow {%- endtrans %}</label>
+            <input type="range" id="flow-slider" value="100" max="100" min="1" step="1">
+            <label for="flow-slider">100%</label>
+        </li>
+        <li>
+            <input type="checkbox" id="spacing" checked>
+            <label for="spacing">{% trans -%} Spacing {%- endtrans %}</label>
+            <input type="range" id="spacing-slider" value="10" min="1" max="200" step="1">
+            <label for="spacing-slider">10%</label>
+        </li>
+    </ul>
+    {% if current_user %}
+        <form id="save" action="{{ url_for('canvas.add', screen_name=current_user.screen_name) }}" method="POST">
+            <ul>
+                <li>
+                    <input id="title" type="text" placeholder="{% trans -%} Title {%- endtrans %}">
+                </li>
+                <li>
+                    <textarea id="description" placeholder="{% trans -%} Description {%- endtrans %}"></textarea>
+                </li>
+                <li>
+                    <label for="replay_allowed">{% trans -%} Allow Replay {%- endtrans %}</label>
+                    <input name="replay_allowed" type="checkbox" id="replay_allowed" value="replay_allowed" checked>
+                </li>
+                <li>
+                    {% if canvas.broadcast %}
+                        <input id="end-broadcast" type="button" value="{% trans -%} End Broadcast {%- endtrans %}" >
+                    {% else %}
+                        <input id="broadcast" type="button" value="{% trans -%} Broadcast {%- endtrans %}" >
+                        <input id="submit" type="submit" value="{% trans -%} Save {%- endtrans %}" >
+                    {% endif %}
+                </li>
+            </ul>
+        </form>
+    {% endif %}
+{% endmacro %}

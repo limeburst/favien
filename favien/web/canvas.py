@@ -2,14 +2,18 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 """
+from __future__ import absolute_import
+
 import base64
 
-from flask import (Blueprint, abort, json, jsonify, redirect, render_template,
-                   request, url_for)
+from flask import (Blueprint, Response, abort, json, jsonify, redirect,
+                   render_template, request, url_for, stream_with_context)
+from redis import ConnectionError
 
 from ..canvas import Canvas
 from ..user import User
 from .db import session
+from .redis import redis
 from .user import current_user
 
 
@@ -41,7 +45,14 @@ def add(screen_name):
     canvas = Canvas(artist_id=current_user.id,
                     title=request.form.get('title'),
                     description=request.form.get('description'),
+                    width=request.form.get('width'),
+                    height=request.form.get('height'),
                     strokes=json.loads(request.form.get('strokes')))
+    broadcast = request.form.get('broadcast', False)
+    if broadcast == 'true':
+        canvas.broadcast = True
+    else:
+        canvas.broadcast = False
     if request.form.get('replay_allowed', False):
         canvas.replay_allowed = True
     session.add(canvas)
@@ -53,7 +64,7 @@ def add(screen_name):
                                     canvas_id=canvas.id))
 
 
-@bp.route('/<screen_name>/<int:canvas_id>/', methods=['POST'])
+@bp.route('/<screen_name>/<int:canvas_id>/', methods=['POST', 'PUT'])
 def edit(screen_name, canvas_id):
     """Edits a canvas."""
     canvas = get_canvas(screen_name, canvas_id)
@@ -63,14 +74,23 @@ def edit(screen_name, canvas_id):
         abort(400)
     canvas.title = request.form.get('title')
     canvas.description = request.form.get('description')
+    broadcast = request.form.get('broadcast', False)
+    if broadcast == 'true':
+        canvas.broadcast = True
+    else:
+        canvas.broadcast = False
     if request.form.get('replay_allowed', False):
         canvas.replay_allowed = True
-    else:
-        canvas.replay_allowed = False
+    canvas_data = request.form.get('canvas', False)
+    if canvas_data:
+        canvas.from_blob(base64.b64decode(canvas_data.split(',')[1]))
     session.add(canvas)
     session.commit()
-    return redirect(url_for('canvas.view', screen_name=screen_name,
-                            canvas_id=canvas_id))
+    loc = url_for('canvas.view', screen_name=screen_name, canvas_id=canvas_id)
+    if request.method == 'PUT':
+        return jsonify(location=loc)
+    elif request.method == 'POST':
+        return redirect(loc)
 
 
 @bp.route('/<screen_name>/<int:canvas_id>/edit/')
@@ -116,6 +136,53 @@ def strokes(screen_name, canvas_id):
     if not canvas.replay_allowed:
         abort(403)
     return jsonify(strokes=canvas.strokes)
+
+
+@bp.route('/<screen_name>/<int:canvas_id>/strokes/', methods=['POST'])
+def append_strokes(screen_name, canvas_id):
+    """Append and publish strokes."""
+    canvas = get_canvas(screen_name, canvas_id)
+    if not canvas:
+        abort(404)
+    if canvas.artist != current_user:
+        abort(400)
+    if not canvas.broadcast:
+        abort(403)
+    strokes = json.loads(request.form.get('strokes'))
+    try:
+        redis.publish(canvas.id, json.dumps({
+            'event': 'strokes',
+            'user': current_user.screen_name,
+            'strokes': strokes
+        }))
+    except ConnectionError:
+        pass  # FIXME
+    canvas.strokes = canvas.strokes + strokes
+    session.add(canvas)
+    session.commit()
+    return jsonify()
+
+
+@bp.route('/<screen_name>/<int:canvas_id>/stream/')
+def stroke_stream(screen_name, canvas_id):
+    """Server-sent events stream endpoint."""
+    canvas = get_canvas(screen_name, canvas_id)
+    if not canvas:
+        abort(404)
+    if not canvas.broadcast:
+        abort(405)
+    return Response(stream_with_context(generate(canvas)),
+                    direct_passthrough=True,
+                    mimetype='text/event-stream')
+
+
+def generate(canvas):
+    """Canvas stream generator."""
+    pubsub = redis.pubsub()
+    pubsub.subscribe(canvas.id)
+    for event in pubsub.listen():
+        if event['type'] == 'message':
+            yield 'data: %s\r\n\r\n' % event['data']
 
 
 @bp.route('/new/')

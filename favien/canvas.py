@@ -36,6 +36,15 @@ class Canvas(Base):
     #: (:class:`sqlalchemy.dialects.postgres.JSON`) Canvas brush strokes.
     strokes = deferred(Column(JSON))
 
+    #: (:class:`sqlalchemy.types.Integer`) Canvas width in pixels.
+    width = Column(Integer, nullable=False)
+
+    #: (:class:`sqlalchemy.types.Integer`) Canvas height in pixels.
+    height = Column(Integer, nullable=False)
+
+    #: (:class:`sqlalchemy.types.Boolean`) Is this canvas broadcasting?
+    broadcast = Column(Boolean, nullable=False, default=False)
+
     #: (:class:`sqlalchemy.types.Boolean`) Is replaying allowed?
     replay_allowed = Column(Boolean, nullable=False, default=False)
 

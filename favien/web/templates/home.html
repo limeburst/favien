@@ -11,7 +11,9 @@
         <ol>
             {% for canvas in recent_canvases %}
                 <li>
-                    <a href="{{ url_for('canvas.view', screen_name=canvas.artist.screen_name, canvas_id=canvas.id) }}"><img src="{{ canvas.get_url() }}"></a>
+                    <a href="{{ url_for('canvas.view', screen_name=canvas.artist.screen_name, canvas_id=canvas.id) }}">
+                        <img src="{{ canvas.get_url() }}" class="{% if canvas.broadcast %}broadcast{% endif %}">
+                    </a>
                 </li>
             {% endfor %}
         </ol>

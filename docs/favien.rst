@@ -12,4 +12,5 @@
       favien/web/admin
       favien/web/canvas
       favien/web/db
+      favien/web/redis
       favien/web/user

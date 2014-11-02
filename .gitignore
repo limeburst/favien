@@ -5,6 +5,7 @@
 .idea
 dist
 docs/_build
+dump.rdb
 favien/web/translations/*/LC_MESSAGES/messages.mo
 favien/web/translations/messages.pot
 instance
