@@ -298,6 +298,7 @@ canvas.on('mouseup mouseleave', function() {
 broadcast.on('click', function() {
     var canvasData = getCanvasData();
     canvasData.broadcast = true;
+    canvasData.replay_allowed = 'replay_allowed';
     $.ajax({
         url: save[0].action,
         type: save[0].method,
