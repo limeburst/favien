@@ -114,6 +114,7 @@ def delete(screen_name, canvas_id):
         abort(404)
     if canvas.artist != current_user:
         abort(400)
+    canvas.key.delete()
     session.delete(canvas)
     session.commit()
     return redirect(url_for('user.profile',
