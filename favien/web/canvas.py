@@ -86,6 +86,8 @@ def edit(screen_name, canvas_id):
         canvas.from_blob(base64.b64decode(canvas_data.split(',')[1]))
     session.add(canvas)
     session.commit()
+    if not canvas.broadcast:
+        redis.publish(canvas.id, json.dumps({'event': 'terminate'}))
     loc = url_for('canvas.view', screen_name=screen_name, canvas_id=canvas_id)
     if request.method == 'PUT':
         return jsonify(location=loc)
@@ -182,6 +184,10 @@ def generate(canvas):
     pubsub.subscribe(canvas.id)
     for event in pubsub.listen():
         if event['type'] == 'message':
+            if isinstance(event['data'], str):
+                data = json.loads(event['data'])
+                if data['event'] == 'terminate':
+                    return
             yield 'data: %s\r\n\r\n' % event['data']
 
 

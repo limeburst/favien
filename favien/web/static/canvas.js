@@ -215,6 +215,9 @@ if (broadcastCanvas.length) {
             replayStroke(broadcastCanvas)
         }
     };
+    evtSource.onerror = function() {
+        window.location.reload()
+    }
 }
 
 var flowLabel = $('label[for=flow-slider]');
