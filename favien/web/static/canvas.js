@@ -89,14 +89,10 @@ var Brush = function(size, flow, spacing, fillStyle, globalCompositeOperation) {
 
 function getSpacing() {
     var sliderValue = spacingSlider.val();
-    if (spacing.is(':checked')) {
-        if (sliderValue <= 100) {
-            return sliderValue
-        } else if (sliderValue > 100) {
-            return 100 + (sliderValue - 100) * 9
-        }
-    } else {
-        return null
+    if (sliderValue <= 100) {
+        return sliderValue
+    } else if (sliderValue > 100) {
+        return 100 + (sliderValue - 100) * 9
     }
 }
 
@@ -183,7 +179,6 @@ var eraser = $('#eraser');
 var height = $('#height');
 var replayButton = $('#replay');
 var save = $('#save');
-var spacing = $('#spacing');
 var submit = $('#submit');
 var tablet = $('#tablet');
 var title = $('#title');
