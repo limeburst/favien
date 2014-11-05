@@ -53,8 +53,8 @@ def add(screen_name):
         canvas.broadcast = True
     else:
         canvas.broadcast = False
-    if request.form.get('replay_allowed', False):
-        canvas.replay_allowed = True
+    if request.form.get('replay', False):
+        canvas.replay = True
     session.add(canvas)
     session.commit()
     blob = base64.b64decode(request.form['canvas'].split(',')[1])
@@ -79,8 +79,8 @@ def edit(screen_name, canvas_id):
         canvas.broadcast = True
     else:
         canvas.broadcast = False
-    if request.form.get('replay_allowed', False):
-        canvas.replay_allowed = True
+    if request.form.get('replay', False):
+        canvas.replay = True
     canvas_data = request.form.get('canvas', False)
     if canvas_data:
         canvas.from_blob(base64.b64decode(canvas_data.split(',')[1]))
@@ -136,7 +136,7 @@ def strokes(screen_name, canvas_id):
     canvas = get_canvas(screen_name, canvas_id)
     if not canvas:
         abort(404)
-    if not canvas.replay_allowed:
+    if not canvas.replay:
         abort(403)
     return jsonify(strokes=canvas.strokes)
 

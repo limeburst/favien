@@ -39,8 +39,8 @@
             {% endif %}
         </ul>
         <img id="replay-canvas" src="{{ canvas.get_url() }}">
-        {% if canvas.replay_allowed %}
-            <input id="replay" type="button" value="{% trans -%} Replay {%- endtrans %}">
+        {% if canvas.replay %}
+            <input id="replay-button" type="button" value="{% trans -%} Replay {%- endtrans %}">
         {% endif %}
         {% if canvas.description %}
             <p>

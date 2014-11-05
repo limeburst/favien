@@ -46,7 +46,7 @@ class Canvas(Base):
     broadcast = Column(Boolean, nullable=False, default=False)
 
     #: (:class:`sqlalchemy.types.Boolean`) Is replaying allowed?
-    replay_allowed = Column(Boolean, nullable=False, default=False)
+    replay = Column(Boolean, nullable=False, default=False)
 
     #: (:class:`sqlalchemy.types.DateTime`) The created time.
     created_at = deferred(

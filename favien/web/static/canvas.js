@@ -154,7 +154,7 @@ function getCanvasData() {
     return {
         title: title.val(),
         description: description.val(),
-        replay_allowed: $('#replay_allowed:checked').val(),
+        replay: $('#replay:checked').val(),
         width: canvas[0].width,
         height: canvas[0].height,
         canvas: canvas[0].toDataURL(),
@@ -177,7 +177,7 @@ var color = $('#color');
 var description = $('#description');
 var eraser = $('#eraser');
 var height = $('#height');
-var replayButton = $('#replay');
+var replayButton = $('#replay-button');
 var save = $('#save');
 var submit = $('#submit');
 var tablet = $('#tablet');
@@ -296,7 +296,7 @@ canvas.on('mouseup mouseleave', function() {
 broadcast.on('click', function() {
     var canvasData = getCanvasData();
     canvasData.broadcast = true;
-    canvasData.replay_allowed = 'replay_allowed';
+    canvasData.replay = 'replay';
     $.ajax({
         url: save[0].action,
         type: save[0].method,

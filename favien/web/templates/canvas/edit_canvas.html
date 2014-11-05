@@ -36,8 +36,8 @@
                 <textarea name="description" placeholder="{% trans -%} Description {%- endtrans %}">{{ canvas.description if canvas.description }}</textarea>
             </li>
             <li>
-                <label for="replay_allowed">{% trans -%} Allow Replay {%- endtrans %}</label>
-                <input name="replay_allowed" type="checkbox" id="replay_allowed" value="replay_allowed" {% if canvas.replay_allowed %}checked{% endif %}>
+                <label for="replay">{% trans -%} Allow Replay {%- endtrans %}</label>
+                <input name="replay" type="checkbox" id="replay" value="replay" {% if canvas.replay %}checked{% endif %}>
             </li>
             <li>
                 <input type="submit" value="{% trans -%} Save {%- endtrans %}" >
