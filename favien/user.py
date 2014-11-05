@@ -30,7 +30,7 @@ class User(Base):
     twitter_oauth_token_secret = Column(String, nullable=False)
 
     #: (:class:`sqlalchemy.orm.relationship`) The user's canvases.
-    canvases = relationship('Canvas', backref='user')
+    canvases = relationship('Canvas')
 
     #: (:class:`sqlalchemy.types.Boolean`) Is this user an administrator?
     admin = deferred(
