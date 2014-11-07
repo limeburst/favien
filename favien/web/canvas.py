@@ -42,7 +42,7 @@ def add(screen_name):
         abort(401)
     if not current_user:
         return redirect(url_for('user.login'))
-    canvas = Canvas(artist_id=current_user.id,
+    canvas = Canvas(artist=current_user,
                     title=request.form.get('title'),
                     description=request.form.get('description'),
                     width=request.form.get('width'),
