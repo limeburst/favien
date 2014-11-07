@@ -49,12 +49,15 @@ def add(screen_name):
                     height=request.form.get('height'),
                     strokes=json.loads(request.form.get('strokes')))
     broadcast = request.form.get('broadcast', False)
+    replay = request.form.get('replay', False)
     if broadcast == 'true':
         canvas.broadcast = True
     else:
         canvas.broadcast = False
-    if request.form.get('replay', False):
+    if replay == 'replay':
         canvas.replay = True
+    else:
+        canvas.replay = False
     session.add(canvas)
     session.commit()
     blob = base64.b64decode(request.form['canvas'].split(',')[1])
@@ -75,12 +78,15 @@ def edit(screen_name, canvas_id):
     canvas.title = request.form.get('title')
     canvas.description = request.form.get('description')
     broadcast = request.form.get('broadcast', False)
+    replay = request.form.get('replay', False)
     if broadcast == 'true':
         canvas.broadcast = True
     else:
         canvas.broadcast = False
-    if request.form.get('replay', False):
+    if replay == 'replay':
         canvas.replay = True
+    else:
+        canvas.replay = False
     canvas_data = request.form.get('canvas', False)
     if canvas_data:
         canvas.from_blob(base64.b64decode(canvas_data.split(',')[1]))

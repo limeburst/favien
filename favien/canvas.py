@@ -43,10 +43,10 @@ class Canvas(Base):
     height = Column(Integer, nullable=False)
 
     #: (:class:`sqlalchemy.types.Boolean`) Is this canvas broadcasting?
-    broadcast = Column(Boolean, nullable=False, default=False)
+    broadcast = Column(Boolean, nullable=False)
 
     #: (:class:`sqlalchemy.types.Boolean`) Is replaying allowed?
-    replay = Column(Boolean, nullable=False, default=False)
+    replay = Column(Boolean, nullable=False)
 
     #: (:class:`sqlalchemy.types.DateTime`) The created time.
     created_at = deferred(
