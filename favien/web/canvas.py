@@ -191,11 +191,11 @@ def generate(canvas):
     pubsub.subscribe(canvas.id)
     for event in pubsub.listen():
         if event['type'] == 'message':
-            if isinstance(event['data'], str):
-                data = json.loads(event['data'])
-                if data['event'] == 'terminate':
-                    return
-            yield 'data: %s\r\n\r\n' % event['data']
+            data = json.loads(event['data'])
+            if data['event'] == 'terminate':
+                return
+            yield 'event: {}\r\ndata: {}\r\n\r\n'.format(data['event'],
+                                                         event['data'])
 
 
 @bp.route('/new/')

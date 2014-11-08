@@ -203,13 +203,13 @@ if (broadcastCanvas.length) {
         }
     });
     var evtSource = new EventSource('stream/');
-    evtSource.onmessage = function(e) {
+    evtSource.addEventListener('strokes', function(e) {
         var data = $.parseJSON(e.data);
         strokes = data.strokes;
         while (strokes.length) {
             replayStroke(broadcastCanvas)
         }
-    };
+    });
     evtSource.onerror = function() {
         window.location.reload()
     }
