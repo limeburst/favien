@@ -93,7 +93,10 @@ def edit(screen_name, canvas_id):
     session.add(canvas)
     session.commit()
     if not canvas.broadcast:
-        redis.publish(canvas.id, json.dumps({'event': 'terminate'}))
+        try:
+            redis.publish(canvas.id, json.dumps({'event': 'terminate'}))
+        except ConnectionError:
+            pass  # FIXME
     loc = url_for('canvas.view', screen_name=screen_name, canvas_id=canvas_id)
     if request.method == 'PUT':
         return jsonify(location=loc)
