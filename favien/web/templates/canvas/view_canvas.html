@@ -11,7 +11,7 @@
 {% block body %}
     {% if canvas.broadcast %}
         {% if current_user == canvas.artist %}
-            <canvas id="canvas" width="{{ canvas.width }}" height="{{ canvas.height }}" class="broadcast"></canvas>
+            <canvas id="drawing-canvas" width="{{ canvas.width }}" height="{{ canvas.height }}" class="broadcast"></canvas>
             <aside>
                 {{ canvas_editor(canvas) }}
             </aside>
