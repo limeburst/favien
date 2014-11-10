@@ -12,7 +12,7 @@
     {% if canvas.broadcast %}
         {% if current_user == canvas.artist %}
             <canvas id="drawing-canvas" width="{{ canvas.width }}" height="{{ canvas.height }}" class="broadcast"></canvas>
-            <aside>
+            <aside id="drawing-tools">
                 {{ canvas_editor(canvas) }}
             </aside>
         {% else %}

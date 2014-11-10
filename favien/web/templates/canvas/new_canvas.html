@@ -6,7 +6,7 @@
 
 {% block body %}
     <canvas id="drawing-canvas" width="600" height="300"></canvas>
-    <aside>
+    <aside id="drawing-tools">
         {{ canvas_editor(None) }}
     </aside>
     {{ super() }}

@@ -21,8 +21,8 @@ canvas, img {
     border-style: solid;
 }
 
-#canvas,
-#canvas + aside {
+#drawing-canvas,
+#drawing-canvas + #drawing-tools {
     float: left;
 }
 
