@@ -23,7 +23,7 @@ canvas, img {
 
 #drawing-canvas,
 #drawing-canvas + #drawing-tools {
-    float: left;
+    display: inline-block;
 }
 
 ol,
