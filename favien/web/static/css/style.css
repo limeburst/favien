@@ -21,6 +21,10 @@ canvas, img {
     border-style: solid;
 }
 
+#drawing-tools {
+    vertical-align: top;
+}
+
 #drawing-canvas,
 #drawing-canvas + #drawing-tools {
     display: inline-block;
