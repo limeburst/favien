@@ -188,6 +188,21 @@ def stroke_stream(screen_name, canvas_id):
                     mimetype='text/event-stream')
 
 
+@bp.route('/<screen_name>/<int:canvas_id>/stream/', methods=['POST'])
+def stream_publish(screen_name, canvas_id):
+    """Stream endpoint for publishing events."""
+    canvas = get_canvas(screen_name, canvas_id)
+    if not canvas:
+        abort(404)
+    if not canvas.broadcast:
+        abort(405)
+    redis.publish(canvas.id, json.dumps({
+        'event': request.form['event'],
+        'screen_name': current_user.screen_name
+    }))
+    return jsonify()
+
+
 def generate(canvas):
     """Canvas stream generator."""
     pubsub = redis.pubsub()

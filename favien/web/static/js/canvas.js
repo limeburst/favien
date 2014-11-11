@@ -214,6 +214,9 @@ if (broadcastCanvas.length) {
         window.location.reload()
     }
 }
+$('#collaboration-request-button').on('click', function() {
+    $.post('stream/', {event: 'collaboration-request'})
+});
 
 var flowLabel = $('label[for=flow-slider]');
 var flowSlider = $('#flow-slider');
