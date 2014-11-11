@@ -171,7 +171,7 @@ var strokes = [];
 var actions = $('#actions');
 var broadcast = $('#broadcast');
 var endBroadcast = $('#end-broadcast');
-var canvas = $('#canvas');
+var canvas = $('#drawing-canvas');
 var broadcastCanvas = $('#broadcast-canvas');
 var color = $('#color');
 var description = $('#description');
@@ -203,13 +203,13 @@ if (broadcastCanvas.length) {
         }
     });
     var evtSource = new EventSource('stream/');
-    evtSource.onmessage = function(e) {
+    evtSource.addEventListener('strokes', function(e) {
         var data = $.parseJSON(e.data);
         strokes = data.strokes;
         while (strokes.length) {
             replayStroke(broadcastCanvas)
         }
-    };
+    });
     evtSource.onerror = function() {
         window.location.reload()
     }

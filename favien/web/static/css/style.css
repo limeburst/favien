@@ -21,9 +21,13 @@ canvas, img {
     border-style: solid;
 }
 
-#canvas,
-#canvas + aside {
-    float: left;
+#drawing-tools {
+    vertical-align: top;
+}
+
+#drawing-canvas,
+#drawing-canvas + #drawing-tools {
+    display: inline-block;
 }
 
 ol,

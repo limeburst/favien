@@ -42,7 +42,7 @@ def add(screen_name):
         abort(401)
     if not current_user:
         return redirect(url_for('user.login'))
-    canvas = Canvas(artist=current_user,
+    canvas = Canvas(artist=current_user._get_current_object(),
                     title=request.form.get('title'),
                     description=request.form.get('description'),
                     width=request.form.get('width'),
@@ -93,7 +93,10 @@ def edit(screen_name, canvas_id):
     session.add(canvas)
     session.commit()
     if not canvas.broadcast:
-        redis.publish(canvas.id, json.dumps({'event': 'terminate'}))
+        try:
+            redis.publish(canvas.id, json.dumps({'event': 'terminate'}))
+        except ConnectionError:
+            pass  # FIXME
     loc = url_for('canvas.view', screen_name=screen_name, canvas_id=canvas_id)
     if request.method == 'PUT':
         return jsonify(location=loc)
@@ -191,11 +194,11 @@ def generate(canvas):
     pubsub.subscribe(canvas.id)
     for event in pubsub.listen():
         if event['type'] == 'message':
-            if isinstance(event['data'], str):
-                data = json.loads(event['data'])
-                if data['event'] == 'terminate':
-                    return
-            yield 'data: %s\r\n\r\n' % event['data']
+            data = json.loads(event['data'])
+            if data['event'] == 'terminate':
+                return
+            yield 'event: {}\r\ndata: {}\r\n\r\n'.format(data['event'],
+                                                         event['data'])
 
 
 @bp.route('/new/')

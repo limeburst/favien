@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block body %}
-    <canvas id="canvas" width="600" height="300"></canvas>
-    <aside>
+    <canvas id="drawing-canvas" width="600" height="300"></canvas>
+    <aside id="drawing-tools">
         {{ canvas_editor(None) }}
     </aside>
     {{ super() }}
