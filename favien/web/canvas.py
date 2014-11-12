@@ -14,7 +14,7 @@ from ..canvas import Canvas
 from ..user import User
 from .db import session
 from .redis import redis
-from .user import current_user
+from .user import current_user, get_user
 
 
 bp = Blueprint('canvas', __name__, template_folder='templates/canvas')
@@ -156,8 +156,9 @@ def append_strokes(screen_name, canvas_id):
     canvas = get_canvas(screen_name, canvas_id)
     if not canvas:
         abort(404)
-    if canvas.artist != current_user:
-        abort(400)
+    if canvas.artist != current_user and \
+       current_user not in canvas.collaborators:
+        abort(401)
     if not canvas.broadcast:
         abort(403)
     strokes = json.loads(request.form.get('strokes'))
@@ -188,6 +189,29 @@ def stroke_stream(screen_name, canvas_id):
                     mimetype='text/event-stream')
 
 
+@bp.route('/<screen_name>/<int:canvas_id>/collaborators/', methods=['POST'])
+def add_collaborator(screen_name, canvas_id):
+    canvas = get_canvas(screen_name, canvas_id)
+    if not canvas:
+        abort(404)
+    if canvas.artist != current_user:
+        abort(403)
+    screen_name = request.form.get('collaborator')
+    if not screen_name:
+        abort(400)
+    collaborator = get_user(screen_name)
+    if not collaborator:
+        abort(404)
+    canvas.collaborators.append(collaborator)
+    session.add(canvas)
+    session.commit()
+    redis.publish(canvas.id, json.dumps({
+        'event': 'add-collaborator',
+        'collaborator': request.form['collaborator']
+    }))
+    return jsonify()
+
+
 @bp.route('/<screen_name>/<int:canvas_id>/stream/', methods=['POST'])
 def stream_publish(screen_name, canvas_id):
     """Stream endpoint for publishing events."""
@@ -212,6 +236,9 @@ def generate(canvas):
             data = json.loads(event['data'])
             if data['event'] == 'terminate':
                 return
+            if data['event'] == 'add-collaborator':
+                if current_user.screen_name == data['collaborator']:
+                    data['event'] = 'collaboration-request-accepted'
             yield 'event: {}\r\ndata: {}\r\n\r\n'.format(data['event'],
                                                          event['data'])
 

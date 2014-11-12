@@ -184,6 +184,8 @@ var tablet = $('#tablet');
 var title = $('#title');
 var width = $('#width');
 
+var evtSource;
+
 if (canvas.length) {
     var wacom = document.getElementById('wacom').penAPI;
 }
@@ -202,7 +204,7 @@ if (broadcastCanvas.length) {
             replayStroke(broadcastCanvas)
         }
     });
-    var evtSource = new EventSource('stream/');
+    evtSource = new EventSource('stream/');
     evtSource.addEventListener('strokes', function(e) {
         var data = $.parseJSON(e.data);
         strokes = data.strokes;
@@ -210,10 +212,25 @@ if (broadcastCanvas.length) {
             replayStroke(broadcastCanvas)
         }
     });
+    evtSource.addEventListener('collaboration-request-accepted', function() {
+        window.location.reload()
+    });
     evtSource.onerror = function() {
         window.location.reload()
     }
 }
+
+if (endBroadcast.length && canvas.length) {
+    evtSource = new EventSource('stream/');
+    evtSource.addEventListener('strokes', function(e) {
+        var data = $.parseJSON(e.data);
+        strokes = data.strokes;
+        while (strokes.length) {
+            replayStroke(canvas)
+        }
+    });
+}
+
 $('#collaboration-request-button').on('click', function() {
     $.post('stream/', {event: 'collaboration-request'})
 });

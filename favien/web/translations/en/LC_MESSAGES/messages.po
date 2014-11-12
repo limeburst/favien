@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Favien dev\n"
 "Report-Msgid-Bugs-To: me@limeburst.net\n"
-"POT-Creation-Date: 2014-11-11 18:26+0900\n"
+"POT-Creation-Date: 2014-11-12 22:34+0900\n"
 "PO-Revision-Date: 2014-10-03 15:35+0900\n"
 "Last-Translator: Jihyeok Seo <me@limeburst.net>\n"
 "Language-Team: en <me@limeburst.net>\n"
@@ -54,7 +54,7 @@ msgstr "Canvases"
 #: favien/web/templates/canvas/edit_canvas.html:7
 #: favien/web/templates/canvas/edit_canvas.html:17
 #: favien/web/templates/canvas/view_canvas.html:7
-#: favien/web/templates/canvas/view_canvas.html:30
+#: favien/web/templates/canvas/view_canvas.html:42
 msgid "Untitled"
 msgstr "Untitled"
 
@@ -126,19 +126,23 @@ msgstr "Delete"
 msgid "Request Collaboration"
 msgstr "Request Collaboration"
 
-#: favien/web/templates/canvas/view_canvas.html:40
+#: favien/web/templates/canvas/view_canvas.html:26
+msgid "Collaborators"
+msgstr "Collaborators"
+
+#: favien/web/templates/canvas/view_canvas.html:52
 msgid "Edit"
 msgstr "Edit"
 
-#: favien/web/templates/canvas/view_canvas.html:46
+#: favien/web/templates/canvas/view_canvas.html:58
 msgid "Replay"
 msgstr "Replay"
 
-#: favien/web/templates/canvas/view_canvas.html:56
+#: favien/web/templates/canvas/view_canvas.html:69
 msgid "Collaboration Requests"
 msgstr "Collaboration Requests"
 
-#: favien/web/templates/canvas/view_canvas.html:58
+#: favien/web/templates/canvas/view_canvas.html:71
 msgid "Share the following link to broadcast and collaborate:"
 msgstr "Share the following link to broadcast and collaborate:"
 
