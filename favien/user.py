@@ -2,7 +2,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 """
-from sqlalchemy.orm import deferred, relationship
+from sqlalchemy.orm import deferred, dynamic_loader, relationship
 from sqlalchemy.schema import Column
 from sqlalchemy.sql.expression import false
 from sqlalchemy.sql.functions import now
@@ -31,6 +31,12 @@ class User(Base):
 
     #: (:class:`sqlalchemy.orm.relationship`) The user's canvases.
     canvases = relationship('Canvas')
+
+    #: (:class:`sqlalchemy.orm.relationship`) Collaborate canvases.
+    collaborate_canvases = relationship('Canvas', secondary='collaborations')
+
+    #: (:class:`sqlalchemy.orm.dynamic_loader`) Canvas collaborations.
+    collaborations = dynamic_loader('Collaboration', cascade='all, delete-orphan')
 
     #: (:class:`sqlalchemy.types.Boolean`) Is this user an administrator?
     admin = deferred(

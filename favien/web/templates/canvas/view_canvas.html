@@ -10,13 +10,28 @@
 
 {% block body %}
     {% if canvas.broadcast %}
-        {% if current_user == canvas.artist %}
+        {% if current_user == canvas.artist or current_user in canvas.collaborators %}
             <canvas id="drawing-canvas" width="{{ canvas.width }}" height="{{ canvas.height }}" class="broadcast"></canvas>
             <aside id="drawing-tools">
                 {{ canvas_editor(canvas) }}
             </aside>
         {% else %}
             <canvas id="broadcast-canvas" width="{{ canvas.width }}" height="{{ canvas.height }}" class="broadcast"></canvas>
+        {% endif %}
+        {% if current_user and current_user != canvas.artist and current_user not in canvas.collaborators %}
+            <input id="collaboration-request-button" type="button" value="{% trans -%} Request Collaboration {%- endtrans %}">
+        {% endif %}
+        {% if canvas.collaborators %}
+            <h3>
+                {% trans -%} Collaborators {%- endtrans %}
+            </h3>
+            <ul>
+                {% for collaborator in canvas.collaborators %}
+                    <li>
+                        <a href="{{ url_for('user.profile', screen_name=collaborator.screen_name) }}">{{ collaborator.screen_name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
         {% endif %}
     {% else %}
         <h2>
@@ -49,4 +64,14 @@
         {% endif %}
     {% endif %}
     {{ super() }}
+    {% if canvas.broadcast and current_user == canvas.artist %}
+        <aside id="collaboration">
+            <h3>{% trans -%} Collaboration Requests {%- endtrans %}</h3>
+            <div id="collaboration-requests"></div>
+            <p>{% trans -%} Share the following link to broadcast and collaborate: {%- endtrans %}</p>
+            <p>{{ url_for('canvas.view', screen_name=canvas.artist.screen_name, canvas_id=canvas.id, _external=True) }}</p>
+        </aside>
+        <script src="//fb.me/react-0.12.0.js"></script>
+        <script src="{{ url_for('static', filename='js/collaborate.js') }}"></script>
+    {% endif %}
 {% endblock %}

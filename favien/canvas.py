@@ -5,7 +5,7 @@
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 from flask import current_app
-from sqlalchemy.orm import deferred, relationship
+from sqlalchemy.orm import deferred, dynamic_loader, relationship
 from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.sql.functions import now
 from sqlalchemy.types import Boolean, DateTime, Integer, UnicodeText
@@ -26,6 +26,12 @@ class Canvas(Base):
 
     #: (:class:`sqlalchemy.orm.relationship`) Canvas artist.
     artist = relationship(User)
+
+    #: (:class:`sqlalchemy.orm.relationship`) Canvas collaborators.
+    collaborators = relationship(User, secondary='collaborations')
+
+    #: (:class:`sqlalchemy.orm.dynamic_loader`) Canvas collaborations.
+    collaborations = dynamic_loader('Collaboration', cascade='all, delete-orphan')
 
     #: (:class:`sqlalchemy.types.String`) Canvas title.
     title = Column(UnicodeText)
@@ -70,3 +76,24 @@ class Canvas(Base):
 
     def get_url(self, expires_in=300):
         return self.key.generate_url(expires_in)
+
+
+class Collaboration(Base):
+    """:class:`User`\ s collaborate on :class:`Canvas`\ s."""
+
+    #: (:class:`sqlalchemy.types.Integer`) :attr:`~Canvas.id` of :attr:`canvas`.
+    canvas_id = Column(Integer, ForeignKey(Canvas.id), primary_key=True)
+
+    #: (:class:`sqlalchemy.types.Integer`) :attr:`~User.id` of :attr:`artist`.
+    artist_id = Column(Integer, ForeignKey(User.id), primary_key=True)
+
+    #: (:class:`sqlalchemy.orm.relationship`) Canvas the user is collaborating on.
+    canvas = relationship(Canvas)
+
+    #: (:class:`sqlalchemy.orm.relationship`) Collaborating artist.
+    artist = relationship(User)
+
+    #: (:class:`sqlalchemy.types.DateTime`) The created time.
+    created_at = Column(DateTime(timezone=True), nullable=False, default=now())
+
+    __tablename__ = 'collaborations'
