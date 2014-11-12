@@ -7,7 +7,7 @@
 dist
 docs/_build
 dump.rdb
-favien/web/static/js/build
+favien/web/static/js/collaborate.js
 favien/web/translations/*/LC_MESSAGES/messages.mo
 favien/web/translations/messages.pot
 instance
