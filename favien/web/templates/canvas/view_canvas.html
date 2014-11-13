@@ -45,6 +45,9 @@
         </h2>
         <ul>
             <li>
+                {{ canvas.created_at|dateformat }}
+            </li>
+            <li>
                 <a rel="author" href="{{ url_for('user.profile', screen_name=canvas.artist.screen_name) }}">{{ canvas.artist.screen_name }}</a>
             </li>
             {% if canvas.artist == current_user %}
