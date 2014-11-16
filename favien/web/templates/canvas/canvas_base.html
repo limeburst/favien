@@ -47,27 +47,29 @@
         </li>
     </ul>
     {% if current_user %}
-        <form id="save" action="{{ url_for('canvas.add', screen_name=current_user.screen_name) }}" method="POST">
-            <ul>
-                <li>
-                    <input id="title" type="text" placeholder="{% trans -%} Title {%- endtrans %}">
-                </li>
-                <li>
-                    <textarea id="description" placeholder="{% trans -%} Description {%- endtrans %}"></textarea>
-                </li>
-                <li>
-                    <label for="replay">{% trans -%} Allow Replay {%- endtrans %}</label>
-                    <input name="replay" type="checkbox" id="replay" value="replay" checked>
-                </li>
-                <li>
-                    {% if canvas.broadcast %}
-                        <input id="end-broadcast" type="button" value="{% trans -%} End Broadcast {%- endtrans %}" >
-                    {% else %}
-                        <input id="broadcast" type="button" value="{% trans -%} Broadcast {%- endtrans %}" >
-                        <input id="submit" type="submit" value="{% trans -%} Save {%- endtrans %}" >
-                    {% endif %}
-                </li>
-            </ul>
-        </form>
+        {% if not canvas or canvas.artist == current_user %}
+            <form id="save" action="{{ url_for('canvas.add', screen_name=current_user.screen_name) }}" method="POST">
+                <ul>
+                    <li>
+                        <input id="title" type="text" placeholder="{% trans -%} Title {%- endtrans %}">
+                    </li>
+                    <li>
+                        <textarea id="description" placeholder="{% trans -%} Description {%- endtrans %}"></textarea>
+                    </li>
+                    <li>
+                        <label for="replay">{% trans -%} Allow Replay {%- endtrans %}</label>
+                        <input name="replay" type="checkbox" id="replay" value="replay" checked>
+                    </li>
+                    <li>
+                        {% if canvas.broadcast %}
+                            <input id="end-broadcast" type="button" value="{% trans -%} End Broadcast {%- endtrans %}" >
+                        {% else %}
+                            <input id="broadcast" type="button" value="{% trans -%} Broadcast {%- endtrans %}" >
+                            <input id="submit" type="submit" value="{% trans -%} Save {%- endtrans %}" >
+                        {% endif %}
+                    </li>
+                </ul>
+            </form>
+        {% endif %}
     {% endif %}
 {% endmacro %}
