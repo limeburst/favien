@@ -43,5 +43,9 @@ setup(
     ],
     entry_points={
         'console_scripts': ['fav = favien.cli:cli'],
-    }
+    },
+    classifiers=[
+        'License :: OSI Approved '
+        ':: GNU Affero General Public License v3 or later (AGPLv3+)',
+    ]
 )
