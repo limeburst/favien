@@ -25,8 +25,8 @@ canvas, img {
     vertical-align: top;
 }
 
-#drawing-canvas,
-#drawing-canvas + #drawing-tools {
+canvas,
+canvas + #drawing-tools {
     display: inline-block;
 }
 

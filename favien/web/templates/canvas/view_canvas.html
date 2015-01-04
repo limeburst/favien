@@ -35,7 +35,7 @@
     </div>
     {% if canvas.broadcast %}
         {% if current_user == canvas.artist or current_user in canvas.collaborators %}
-            <canvas id="drawing-canvas" width="{{ canvas.width }}" height="{{ canvas.height }}" class="broadcast"></canvas>
+            <canvas id="live-canvas" width="{{ canvas.width }}" height="{{ canvas.height }}" class="broadcast"></canvas>
             <aside id="drawing-tools">
                 {{ canvas_editor(canvas) }}
             </aside>

@@ -162,6 +162,7 @@ function getCanvasData() {
     }
 }
 
+var canvas;
 var brush;
 var stroke;
 var isLocked;
@@ -171,8 +172,6 @@ var strokes = [];
 var actions = $('#actions');
 var broadcast = $('#broadcast');
 var endBroadcast = $('#end-broadcast');
-var canvas = $('#drawing-canvas');
-var broadcastCanvas = $('#broadcast-canvas');
 var color = $('#color');
 var description = $('#description');
 var eraser = $('#eraser');
@@ -184,12 +183,23 @@ var tablet = $('#tablet');
 var title = $('#title');
 var width = $('#width');
 
+var liveCanvas = $('#live-canvas');
+var drawingCanvas = $('#drawing-canvas');
+var broadcastCanvas = $('#broadcast-canvas');
+if (drawingCanvas.length) {
+    canvas = drawingCanvas;
+} else if (liveCanvas.length) {
+    canvas = liveCanvas;
+} else if (broadcastCanvas.length) {
+    canvas = broadcastCanvas;
+}
+
 var evtSource;
 
-if (canvas.length) {
+if (drawingCanvas.length || liveCanvas.length) {
     var wacom = document.getElementById('wacom').penAPI;
 }
-if (endBroadcast.length) {
+if (liveCanvas.length) {
     $.get('strokes/', function (data) {
         strokes = data.strokes;
         while (strokes.length) {
@@ -220,7 +230,7 @@ if (broadcastCanvas.length) {
     }
 }
 
-if (endBroadcast.length && canvas.length) {
+if (liveCanvas.length) {
     evtSource = new EventSource('stream/');
     evtSource.addEventListener('strokes', function(e) {
         var data = $.parseJSON(e.data);
@@ -302,7 +312,7 @@ canvas.on('mousemove', function(e) {
 canvas.on('mouseup mouseleave', function() {
     if (stroke) {
         strokes.push(stroke);
-        if (endBroadcast.length) {
+        if (liveCanvas.length) {
             $.post('strokes/', {strokes: JSON.stringify(strokes)}, function () {
                 strokes = [];
             });
