@@ -225,9 +225,6 @@ if (broadcastCanvas.length) {
     evtSource.addEventListener('collaboration-request-accepted', function() {
         window.location.reload()
     });
-    evtSource.onerror = function() {
-        window.location.reload()
-    }
 }
 
 if (liveCanvas.length) {
