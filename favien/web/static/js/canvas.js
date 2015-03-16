@@ -305,8 +305,11 @@ canvas.on('mousemove', function(e) {
             getPressure(),
             new Date().getTime()
         );
-        stroke.traces.push(trace);
-        brush.move(canvas, trace);
+        var lastTrace = stroke.traces[stroke.traces.length - 1];
+        if (lastTrace.x != trace.x && lastTrace.y != trace.y) {
+            stroke.traces.push(trace);
+            brush.move(canvas, trace);
+        }
     }
 });
 canvas.on('mouseup mouseleave', function() {
