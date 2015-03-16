@@ -4,6 +4,7 @@
 .DS_Store
 .idea
 .module-cache
+build
 dist
 docs/_build
 dump.rdb
