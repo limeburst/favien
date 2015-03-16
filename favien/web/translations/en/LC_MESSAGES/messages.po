@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Favien dev\n"
 "Report-Msgid-Bugs-To: me@limeburst.net\n"
-"POT-Creation-Date: 2014-11-12 22:34+0900\n"
+"POT-Creation-Date: 2015-03-17 03:24+0900\n"
 "PO-Revision-Date: 2014-10-03 15:35+0900\n"
 "Last-Translator: Jihyeok Seo <me@limeburst.net>\n"
 "Language-Team: en <me@limeburst.net>\n"
@@ -54,7 +54,7 @@ msgstr "Canvases"
 #: favien/web/templates/canvas/edit_canvas.html:7
 #: favien/web/templates/canvas/edit_canvas.html:17
 #: favien/web/templates/canvas/view_canvas.html:7
-#: favien/web/templates/canvas/view_canvas.html:42
+#: favien/web/templates/canvas/view_canvas.html:18
 msgid "Untitled"
 msgstr "Untitled"
 
@@ -90,30 +90,30 @@ msgstr "Flow"
 msgid "Spacing"
 msgstr "Spacing"
 
-#: favien/web/templates/canvas/canvas_base.html:53
+#: favien/web/templates/canvas/canvas_base.html:54
 #: favien/web/templates/canvas/edit_canvas.html:33
 msgid "Title"
 msgstr "Title"
 
-#: favien/web/templates/canvas/canvas_base.html:56
+#: favien/web/templates/canvas/canvas_base.html:57
 #: favien/web/templates/canvas/edit_canvas.html:36
 msgid "Description"
 msgstr "Description"
 
-#: favien/web/templates/canvas/canvas_base.html:59
+#: favien/web/templates/canvas/canvas_base.html:60
 #: favien/web/templates/canvas/edit_canvas.html:39
 msgid "Allow Replay"
 msgstr "Allow Replay"
 
-#: favien/web/templates/canvas/canvas_base.html:64
+#: favien/web/templates/canvas/canvas_base.html:65
 msgid "End Broadcast"
 msgstr "End Broadcast"
 
-#: favien/web/templates/canvas/canvas_base.html:66
+#: favien/web/templates/canvas/canvas_base.html:67
 msgid "Broadcast"
 msgstr "Broadcast"
 
-#: favien/web/templates/canvas/canvas_base.html:67
+#: favien/web/templates/canvas/canvas_base.html:68
 #: favien/web/templates/canvas/edit_canvas.html:43
 msgid "Save"
 msgstr "Save"
@@ -122,27 +122,27 @@ msgstr "Save"
 msgid "Delete"
 msgstr "Delete"
 
-#: favien/web/templates/canvas/view_canvas.html:22
-msgid "Request Collaboration"
-msgstr "Request Collaboration"
-
-#: favien/web/templates/canvas/view_canvas.html:26
-msgid "Collaborators"
-msgstr "Collaborators"
-
-#: favien/web/templates/canvas/view_canvas.html:52
+#: favien/web/templates/canvas/view_canvas.html:31
 msgid "Edit"
 msgstr "Edit"
 
-#: favien/web/templates/canvas/view_canvas.html:58
+#: favien/web/templates/canvas/view_canvas.html:46
+msgid "Request Collaboration"
+msgstr "Request Collaboration"
+
+#: favien/web/templates/canvas/view_canvas.html:50
+msgid "Collaborators"
+msgstr "Collaborators"
+
+#: favien/web/templates/canvas/view_canvas.html:63
 msgid "Replay"
 msgstr "Replay"
 
-#: favien/web/templates/canvas/view_canvas.html:69
+#: favien/web/templates/canvas/view_canvas.html:74
 msgid "Collaboration Requests"
 msgstr "Collaboration Requests"
 
-#: favien/web/templates/canvas/view_canvas.html:71
+#: favien/web/templates/canvas/view_canvas.html:76
 msgid "Share the following link to broadcast and collaborate:"
 msgstr "Share the following link to broadcast and collaborate:"
 

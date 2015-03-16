@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Favien dev\n"
 "Report-Msgid-Bugs-To: me@limeburst.net\n"
-"POT-Creation-Date: 2014-11-12 22:34+0900\n"
+"POT-Creation-Date: 2015-03-17 03:24+0900\n"
 "PO-Revision-Date: 2014-10-03 01:44+0900\n"
 "Last-Translator: Jihyeok Seo <me@limeburst.net>\n"
 "Language-Team: ko <me@limeburst.net>\n"
@@ -53,7 +53,7 @@ msgstr "캔버스"
 #: favien/web/templates/canvas/edit_canvas.html:7
 #: favien/web/templates/canvas/edit_canvas.html:17
 #: favien/web/templates/canvas/view_canvas.html:7
-#: favien/web/templates/canvas/view_canvas.html:42
+#: favien/web/templates/canvas/view_canvas.html:18
 msgid "Untitled"
 msgstr "제목 없음"
 
@@ -89,30 +89,30 @@ msgstr "흐름"
 msgid "Spacing"
 msgstr "간격"
 
-#: favien/web/templates/canvas/canvas_base.html:53
+#: favien/web/templates/canvas/canvas_base.html:54
 #: favien/web/templates/canvas/edit_canvas.html:33
 msgid "Title"
 msgstr "제목"
 
-#: favien/web/templates/canvas/canvas_base.html:56
+#: favien/web/templates/canvas/canvas_base.html:57
 #: favien/web/templates/canvas/edit_canvas.html:36
 msgid "Description"
 msgstr "설명"
 
-#: favien/web/templates/canvas/canvas_base.html:59
+#: favien/web/templates/canvas/canvas_base.html:60
 #: favien/web/templates/canvas/edit_canvas.html:39
 msgid "Allow Replay"
 msgstr "리플레이 허용"
 
-#: favien/web/templates/canvas/canvas_base.html:64
+#: favien/web/templates/canvas/canvas_base.html:65
 msgid "End Broadcast"
 msgstr "방송 끝내기"
 
-#: favien/web/templates/canvas/canvas_base.html:66
+#: favien/web/templates/canvas/canvas_base.html:67
 msgid "Broadcast"
 msgstr "방송"
 
-#: favien/web/templates/canvas/canvas_base.html:67
+#: favien/web/templates/canvas/canvas_base.html:68
 #: favien/web/templates/canvas/edit_canvas.html:43
 msgid "Save"
 msgstr "저장"
@@ -121,27 +121,27 @@ msgstr "저장"
 msgid "Delete"
 msgstr "삭제"
 
-#: favien/web/templates/canvas/view_canvas.html:22
-msgid "Request Collaboration"
-msgstr "합작 요청 보내기"
-
-#: favien/web/templates/canvas/view_canvas.html:26
-msgid "Collaborators"
-msgstr "합작 참가자"
-
-#: favien/web/templates/canvas/view_canvas.html:52
+#: favien/web/templates/canvas/view_canvas.html:31
 msgid "Edit"
 msgstr "수정"
 
-#: favien/web/templates/canvas/view_canvas.html:58
+#: favien/web/templates/canvas/view_canvas.html:46
+msgid "Request Collaboration"
+msgstr "합작 요청 보내기"
+
+#: favien/web/templates/canvas/view_canvas.html:50
+msgid "Collaborators"
+msgstr "합작 참가자"
+
+#: favien/web/templates/canvas/view_canvas.html:63
 msgid "Replay"
 msgstr "리플레이"
 
-#: favien/web/templates/canvas/view_canvas.html:69
+#: favien/web/templates/canvas/view_canvas.html:74
 msgid "Collaboration Requests"
 msgstr "합작 요청"
 
-#: favien/web/templates/canvas/view_canvas.html:71
+#: favien/web/templates/canvas/view_canvas.html:76
 msgid "Share the following link to broadcast and collaborate:"
 msgstr "다음 링크를 공유하여 방송을 알리거나 합작에 초대할 수 있습니다:"
 
