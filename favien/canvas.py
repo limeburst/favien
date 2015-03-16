@@ -9,7 +9,7 @@ from sqlalchemy.orm import deferred, dynamic_loader, relationship
 from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.sql.functions import now
 from sqlalchemy.types import Boolean, DateTime, Integer, UnicodeText
-from sqlalchemy.dialects.postgres import JSONB
+from sqlalchemy.dialects.postgres import JSON
 
 from .orm import Base
 from .user import User
@@ -40,7 +40,7 @@ class Canvas(Base):
     description = Column(UnicodeText)
 
     #: (:class:`sqlalchemy.dialects.postgres.JSON`) Canvas brush strokes.
-    strokes = deferred(Column(JSONB))
+    strokes = deferred(Column(JSON))
 
     #: (:class:`sqlalchemy.types.Integer`) Canvas width in pixels.
     width = Column(Integer, nullable=False)
