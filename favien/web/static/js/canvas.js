@@ -267,61 +267,63 @@ spacingSlider.on('input', function() {
     }
 });
 
-canvas.on('mousedown', function(e) {
-    var pressure = getPressure();
-    if (pressure !== 0) {
-        if (!isLocked) {
-            isLocked = true;
-            width.prop('disabled', true);
-            height.prop('disabled', true);
-        }
-        isDrawing = true;
-        brush = new Brush(
-            sizeSlider.val(),
-            flowSlider.val(),
-            getSpacing(),
-            color.val(),
-            getGlobalCompositeOperation()
-        );
-        stroke = new Stroke(brush);
-        var trace = new Trace(
-            e.offsetX,
-            e.offsetY,
-            pressure,
-            new Date().getTime()
-        );
-        stroke.traces.push(trace);
-        brush.down(canvas, trace);
-    }
-});
-canvas.on('mousemove', function(e) {
-    if (isDrawing) {
-        var trace = new Trace(
-            e.offsetX,
-            e.offsetY,
-            getPressure(),
-            new Date().getTime()
-        );
-        var lastTrace = stroke.traces[stroke.traces.length - 1];
-        if (lastTrace.x != trace.x && lastTrace.y != trace.y) {
+if (canvas !== undefined) {
+    canvas.on('mousedown', function (e) {
+        var pressure = getPressure();
+        if (pressure !== 0) {
+            if (!isLocked) {
+                isLocked = true;
+                width.prop('disabled', true);
+                height.prop('disabled', true);
+            }
+            isDrawing = true;
+            brush = new Brush(
+                sizeSlider.val(),
+                flowSlider.val(),
+                getSpacing(),
+                color.val(),
+                getGlobalCompositeOperation()
+            );
+            stroke = new Stroke(brush);
+            var trace = new Trace(
+                e.offsetX,
+                e.offsetY,
+                pressure,
+                new Date().getTime()
+            );
             stroke.traces.push(trace);
-            brush.move(canvas, trace);
+            brush.down(canvas, trace);
         }
-    }
-});
-canvas.on('mouseup mouseleave', function() {
-    if (stroke) {
-        strokes.push(stroke);
-        if (liveCanvas.length) {
-            $.post('strokes/', {strokes: JSON.stringify(strokes)}, function () {
-                strokes = [];
-            });
+    });
+    canvas.on('mousemove', function (e) {
+        if (isDrawing) {
+            var trace = new Trace(
+                e.offsetX,
+                e.offsetY,
+                getPressure(),
+                new Date().getTime()
+            );
+            var lastTrace = stroke.traces[stroke.traces.length - 1];
+            if (lastTrace.x != trace.x && lastTrace.y != trace.y) {
+                stroke.traces.push(trace);
+                brush.move(canvas, trace);
+            }
         }
-    }
-    isDrawing = false;
-    brush = undefined;
-    stroke = undefined;
-});
+    });
+    canvas.on('mouseup mouseleave', function () {
+        if (stroke) {
+            strokes.push(stroke);
+            if (liveCanvas.length) {
+                $.post('strokes/', {strokes: JSON.stringify(strokes)}, function () {
+                    strokes = [];
+                });
+            }
+        }
+        isDrawing = false;
+        brush = undefined;
+        stroke = undefined;
+    });
+}
 
 broadcast.on('click', function() {
     var canvasData = getCanvasData();
