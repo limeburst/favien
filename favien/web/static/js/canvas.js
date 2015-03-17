@@ -295,8 +295,55 @@ if (canvas !== undefined) {
             brush.down(canvas, trace);
         }
     });
+    canvas.on('touchstart', function (e) {
+        var pressure = getPressure();
+        if (pressure !== 0) {
+            if (!isLocked) {
+                isLocked = true;
+                width.prop('disabled', true);
+                height.prop('disabled', true);
+            }
+            isDrawing = true;
+            brush = new Brush(
+                sizeSlider.val(),
+                flowSlider.val(),
+                getSpacing(),
+                color.val(),
+                getGlobalCompositeOperation()
+            );
+            stroke = new Stroke(brush);
+            var rect = e.target.getBoundingClientRect();
+            var touch = e.originalEvent.targetTouches[0];
+            var trace = new Trace(
+                touch.clientX - rect.left,
+                touch.clientY - rect.top,
+                pressure,
+                new Date().getTime()
+            );
+            stroke.traces.push(trace);
+            brush.down(canvas, trace);
+        }
+    });
+    canvas.on('touchmove', function (e) {
+        if (isDrawing) {
+            if (e.originalEvent.targetTouches.length == 1) {
+                e.preventDefault();
+                var rect = e.target.getBoundingClientRect();
+                var touch = e.originalEvent.targetTouches[0];
+                var trace = new Trace(
+                    touch.clientX - rect.left,
+                    touch.clientY - rect.top,
+                    getPressure(),
+                    new Date().getTime()
+                );
+                stroke.traces.push(trace);
+                brush.move(canvas, trace);
+            }
+    }
+    });
     canvas.on('mousemove', function (e) {
         if (isDrawing) {
+            e.preventDefault();
             var trace = new Trace(
                 e.offsetX,
                 e.offsetY,
@@ -310,7 +357,7 @@ if (canvas !== undefined) {
             }
         }
     });
-    canvas.on('mouseup mouseleave', function () {
+    canvas.on('mouseup mouseleave touchend', function () {
         if (stroke) {
             strokes.push(stroke);
             if (liveCanvas.length) {
