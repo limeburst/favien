@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Favien dev\n"
 "Report-Msgid-Bugs-To: me@limeburst.net\n"
-"POT-Creation-Date: 2015-03-17 03:24+0900\n"
+"POT-Creation-Date: 2015-03-17 20:33+0900\n"
 "PO-Revision-Date: 2014-10-03 01:44+0900\n"
 "Last-Translator: Jihyeok Seo <me@limeburst.net>\n"
 "Language-Team: ko <me@limeburst.net>\n"
@@ -45,11 +45,17 @@ msgid "%(number)s canvas"
 msgid_plural "%(number)s canvases"
 msgstr[0] "%(number)s개의 캔버스"
 
-#: favien/web/templates/profile.html:23
+#: favien/web/templates/profile.html:22
+#, python-format
+msgid "%(number)s stroke"
+msgid_plural "%(number)s strokes"
+msgstr[0] "%(number)s획을 그림"
+
+#: favien/web/templates/profile.html:30
 msgid "Canvases"
 msgstr "캔버스"
 
-#: favien/web/templates/profile.html:31
+#: favien/web/templates/profile.html:38
 #: favien/web/templates/canvas/edit_canvas.html:7
 #: favien/web/templates/canvas/edit_canvas.html:17
 #: favien/web/templates/canvas/view_canvas.html:7

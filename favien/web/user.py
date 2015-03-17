@@ -125,4 +125,5 @@ def profile(screen_name):
     user = get_user(screen_name)
     if not user:
         abort(404)
-    return render_template('profile.html', user=user)
+    strokes = sum([len(canvas.strokes) for canvas in user.canvases])
+    return render_template('profile.html', user=user, strokes=strokes)

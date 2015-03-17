@@ -18,6 +18,13 @@
                 {{ number }} canvases
             {%- endtrans %}
         </li>
+        <li>
+            {% trans number=strokes -%}
+                {{ number }} stroke
+            {%- pluralize -%}
+                {{ number }} strokes
+            {%- endtrans %}
+        </li>
     </ul>
     {% if user.canvases %}
         <h3>{% trans -%} Canvases {%- endtrans %}</h3>
