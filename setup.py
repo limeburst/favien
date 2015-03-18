@@ -32,14 +32,14 @@ setup(
         ]
     },
     install_requires=[
-        'Flask',
-        'Flask-Babel',
-        'SQLAlchemy',
-        'boto',
-        'click',
-        'redis',
-        'requests',
-        'requests_oauthlib',
+        'Flask == 0.10.1',
+        'Flask-Babel == 0.9',
+        'SQLAlchemy == 0.9.9',
+        'boto == 2.36.0',
+        'click == 3.3',
+        'redis == 2.10.3',
+        'requests == 2.6.0',
+        'requests_oauthlib == 0.4.2',
     ],
     entry_points={
         'console_scripts': ['fav = favien.cli:cli'],
