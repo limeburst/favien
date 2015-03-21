@@ -5,7 +5,9 @@
         <meta charset="utf-8">
         <title>
             {%- block title -%}
-                {{ config.SERVICE_NAME }}
+                {% trans -%}
+                    Favien
+                {%- endtrans %}
             {%- endblock -%}
         </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +17,11 @@
 <body>
 <header>
     <h1>
-        <a href="{{ url_for('user.home') }}">{{ config.SERVICE_NAME }}</a>
+        <a href="{{ url_for('user.home') }}">
+            {% trans -%}
+                Favien
+            {%- endtrans %}
+        </a>
     </h1>
     <nav>
         <ul>
