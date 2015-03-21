@@ -10,7 +10,7 @@ from setuptools import setup
 
 setup(
     name='Favien',
-    version='dev',
+    version='0.0.0',
     url='https://github.com/limeburst/favien',
     author='Jihyeok Seo',
     author_email='me@limeburst.net',
