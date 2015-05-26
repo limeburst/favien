@@ -35,6 +35,7 @@ setup(
         'Flask == 0.10.1',
         'Flask-Babel == 0.9',
         'SQLAlchemy == 0.9.9',
+        'alembic == 0.7.4',
         'boto == 2.36.0',
         'click == 3.3',
         'redis == 2.10.3',
