@@ -19,6 +19,8 @@ setup(
     zip_safe=False,
     packages=['favien', 'favien.web'],
     package_data={
+        'favien': ['migrations/env.py', 'migrations/*.mako',
+                   'migrations/versions/*.py'],
         'favien.web': ['templates/*.*', 'templates/*/*.*',
                        'static/*.*', 'static/*/*.*',
                        'translations/*/LC_MESSAGES/*'],
