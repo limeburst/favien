@@ -57,7 +57,6 @@ def home():
     """Home."""
     recent_canvases = session.query(Canvas) \
                              .order_by(Canvas.created_at.desc()) \
-                             .limit(8) \
                              .all()
     return render_template('home.html', recent_canvases=recent_canvases)
 
