@@ -2,8 +2,8 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 """
-from boto.s3.connection import S3Connection
-from boto.s3.key import Key
+import boto3
+from botocore.client import Config
 from flask import current_app
 from sqlalchemy.orm import deferred, dynamic_loader, relationship
 from sqlalchemy.schema import Column, ForeignKey
@@ -64,18 +64,22 @@ class Canvas(Base):
 
     @property
     def key(self):
-        config = current_app.config
-        c = S3Connection(config['AWS_ACCESS_KEY_ID'], config['AWS_SECRET_KEY'])
-        b = c.get_bucket(config['AWS_S3_BUCKET'], validate=False)
-        k = Key(b)
-        k.key = '{}/{}'.format(self.__tablename__, self.id)
-        return k
+        return '{}/{}'.format(self.__tablename__, self.id)
 
     def from_blob(self, blob):
-        self.key.set_contents_from_string(blob)
+        s3 = boto3.resource('s3')
+        o = s3.Object(current_app.config['AWS_S3_BUCKET'], self.key)
+        return o.put(Body=blob)
 
-    def get_url(self, expires_in=300):
-        return self.key.generate_url(expires_in)
+    def get_url(self):
+        s3 = boto3.client('s3', config=Config(signature_version='s3v4'))
+        return s3.generate_presigned_url(
+            ClientMethod='get_object',
+            Params={
+                'Bucket': current_app.config['AWS_S3_BUCKET'],
+                'Key': self.key,
+            },
+        )
 
 
 class Collaboration(Base):
